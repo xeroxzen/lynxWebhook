@@ -39,7 +39,7 @@ app.post('/', express.json(), (req, res)=>{
     }
     // Confirming #capture-fullname.firstname #capture-fullname.lastname with phone number $phone-number wishes to travel from #capture-to.travel-from to #capture-date.travel-to on #capture-schedule.travel-date.original in the #confirm-booking.travel-time
 
-    function confirmBooking(agent){
+    function confirmationMessage(agent){
         var fullname = agent.context("capture-fullname");
         var phone = agent.context("phone-number");
         var travelFrom = agent.context("capture-to");
@@ -52,6 +52,7 @@ app.post('/', express.json(), (req, res)=>{
 
     intentMap.set('webhookDemo', demo)
     intentMap.set('customPayloadDemo', customPayloadDemo)
+    intentMap.set('confirmationMessage', confirmationMessage)
 
     agent.handleRequest(intentMap);
 });
