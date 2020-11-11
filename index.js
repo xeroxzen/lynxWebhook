@@ -9,6 +9,26 @@ const dfff = require('dialogflow-fulfillment');
 const {Card, Suggestion} = require('dialogflow-fulfillment');
 
 
+
+var admin = require("firebase-admin");
+
+var serviceAccount = require("./config/lynxwebhook-firebase-adminsdk-q590u-6fb2939cc9.json");
+
+try {
+    admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount),
+        databaseURL: "https://lynxwebhook.firebaseio.com"
+    });
+
+    console.log("Connected to DB");
+    
+} catch (error) {
+    console.log(`Error here ${error}`);
+}
+
+var db = admin.firestore();
+
+
 //Let's define port number
 const port = process.env.PORT || 8080
 
@@ -52,21 +72,30 @@ app.post('/dialogflow-fulfillment', express.json(), (req, res)=>{
     // Confirming #capture-fullname.firstname #capture-fullname.lastname with phone number $phone-number wishes to travel from #capture-to.travel-from to #capture-date.travel-to on #capture-schedule.travel-date.original in the #confirm-booking.travel-time
 
     function confirmationMessage(agent){
-        var fullname = agent.context.get("capture-fullname");
-        var phone = agent.context.get("phone-number");
+        var firstname = agent.context.get("capture-fullname").parameters.firstname;
+        var lastname = agent.context.get("capture-fullname").parameters.lastname;
+        var phone = agent.context.get("confirm-ticket").parameters["phone-number"];
         var travelFrom = agent.context.get("capture-to");
         var travelTo = agent.context.get("capture-date");
         var travelDate = agent.context.get("capture-schedule");
         var travelTime = agent.context.get("confirm-booking");
 
-        console.log(fullname);
-        console.log(phone);
-        console.log(travelFrom);
-        console.log(travelTo);
-        console.log(travelDate);
-        console.log(travelTime);
-
         agent.add("Dummy Response");
+
+        return db.collection('tickets').add({
+            firstname: firstname,
+            lastname: lastname,
+            phone: phone,
+            travelFrom: travelFrom,
+            travelTo: travelTo,
+            travelDate: travelDate,
+            travelTime: travelTime,
+            time: Date.now()
+
+        }).then(ref =>
+            //fetching free slots
+            console.log("Ticket details added")
+            )
     }
 
     var intentMap = new Map();
