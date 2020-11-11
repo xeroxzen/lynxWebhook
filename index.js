@@ -75,10 +75,10 @@ app.post('/dialogflow-fulfillment', express.json(), (req, res)=>{
         var firstname = agent.context.get("capture-fullname").parameters.firstname;
         var lastname = agent.context.get("capture-fullname").parameters.lastname;
         var phone = agent.context.get("confirm-ticket").parameters["phone-number"];
-        var travelFrom = agent.context.get("capture-to");
-        var travelTo = agent.context.get("capture-date");
-        var travelDate = agent.context.get("capture-schedule");
-        var travelTime = agent.context.get("confirm-booking");
+        var travelFrom = agent.context.get("capture-to").parameters["travel-from"];
+        var travelTo = agent.context.get("capture-date").parameters["travel-to"];
+        var travelDate = agent.context.get("capture-schedule").parameters["travel-date"];
+        var travelTime = agent.context.get("confirm-booking").parameters["travel-time"];
 
         agent.add("Dummy Response");
 
