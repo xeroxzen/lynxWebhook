@@ -47,6 +47,14 @@ app.post('/dialogflow-fulfillment', express.json(), (req, res)=>{
         agent.add("Okay lett's see what we can get up to today");
     }
 
+    function somethingNice(agent) {
+        agent.add("You are amazing bro. 120 lines of code in 5 hours, 1hr 40mins of actually keystrokes and 18 git commits, not forgetting that you also deployed to Google Cloud Functions and Heroku as well and the whole thing works flawlessly. That's pretty dope to me.");
+    }
+
+    function somethingCrazy(agent) {
+        agent.add("Let's dismantle all that we have done in the last 30 days and start afresh, this time 10x faster. Simply because I know you can haha");
+    }
+
     function customPayloadDemo(agent){
         var payloadData = {
             "richContent": [
