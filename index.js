@@ -110,6 +110,8 @@ app.post('/dialogflow-fulfillment', express.json(), (req, res)=>{
     intentMap.set('webhookDemo', demo)
     intentMap.set('customPayloadDemo', customPayloadDemo)
     intentMap.set('confirmationMessage', confirmationMessage)
+    intentMap.set('somethingNice', somethingNice)
+    intentMap.set('somethingCrazy', somethingCrazy)
 
     agent.handleRequest(intentMap);
 });
