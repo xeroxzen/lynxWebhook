@@ -30,23 +30,23 @@ app.post('/dialogflow-fulfillment', express.json(), (req, res)=>{
     function customPayloadDemo(agent){
         var payloadData = {
             "richContent": [
-                    [
-                {
-                    "type": "accordion",
-                    "title": "Accordion title",
-                    "subtitle": "Accordion subtitle",
-                    "image": {
-                    "src": {
-                        "rawUrl": "https://example.com/images/logo.png"
-                        }
-                    },
-                    "text": "Accordion text"
+                [
+                    {
+                        "type": "accordion",
+                        "title": "Accordion title",
+                        "subtitle": "Accordion subtitle",
+                        "image": {
+                        "src": {
+                            "rawUrl": "https://example.com/images/logo.png"
+                            }
+                        },
+                        "text": "Accordion text"
                     }
                 ]
             ]
         }
 
-        agent.add( new dfff.Payload(agent.UNSPECIFIED, payloadData, {sendAsMessage: true, rawPayload: true}) )
+        agent.add( new dfff.Payload(agent.UNSPECIFIED, payloadData, {sendAsMessage: true, rawPayload: true }) )
         //agent.add("This is the custom payload function")
     }
     // Confirming #capture-fullname.firstname #capture-fullname.lastname with phone number $phone-number wishes to travel from #capture-to.travel-from to #capture-date.travel-to on #capture-schedule.travel-date.original in the #confirm-booking.travel-time
@@ -70,7 +70,6 @@ app.post('/dialogflow-fulfillment', express.json(), (req, res)=>{
     }
 
     var intentMap = new Map();
-
     intentMap.set('webhookDemo', demo)
     intentMap.set('customPayloadDemo', customPayloadDemo)
     intentMap.set('confirmationMessage', confirmationMessage)
