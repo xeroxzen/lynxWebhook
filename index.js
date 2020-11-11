@@ -80,16 +80,7 @@ app.post('/dialogflow-fulfillment', express.json(), (req, res)=>{
         var travelDate = agent.context.get("capture-schedule").parameters["travel-date"];
         var travelTime = agent.context.get("confirm-booking").parameters["travel-time"];
 
-        agent.add(`BOOKING CONFIRMATION \n
-
-                FULL NAME: ${firstname} ${lastname}, \n
-                PHONE NUMBER: ${phone}, \n
-                TRIP: ${travelFrom} to ${travelTo}, \n
-                DATE: ${travelDate}, \n
-                TIME: ${travelTime} \n
-                Safe Travels with City Link
-                
-                `);
+        agent.add(`BOOKING CONFIRMATION \nFULL NAME: ${firstname} ${lastname}, \nPHONE NUMBER: ${phone}, \nTRIP: ${travelFrom} to ${travelTo}, \nDATE: ${travelDate}, \nTIME: ${travelTime} \nSafe Travels with City Link`);
 
         return db.collection('tickets').add({
             firstname: firstname,
