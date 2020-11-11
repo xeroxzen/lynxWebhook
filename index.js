@@ -8,11 +8,15 @@ const app = express();
 const dfff = require('dialogflow-fulfillment');
 const {Card, Suggestion} = require('dialogflow-fulfillment');
 
+
+//Let's define port number
+const port = process.env.PORT || 8080
+
 app.get('/', (req, res)=> {
     res.send("Yes the server is live dude, go to bed.")
 });
 
-app.post('/', express.json(), (req, res)=>{
+app.post('/dialogflow-fulfillment', (req, res)=>{
     const agent = new dfff.WebhookClient({
         request : req,
         response : res
@@ -74,4 +78,6 @@ app.post('/', express.json(), (req, res)=>{
     agent.handleRequest(intentMap);
 });
 
-app.listen(3333, ()=>console.log("Server is live at port 3333"));
+app.listen(port, () => {
+    console.log(`Server is live at port ${port}`)
+});
