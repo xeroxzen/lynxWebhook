@@ -20,7 +20,7 @@ app.post('/', express.json(), (req, res)=>{
 
     function demo(agent) {
         agent.add("We are live, sending response from Webhook server as [Version 1.1.11.1]");
-        agent.add("You should catch some sleep now, just a couple of hours.");
+        agent.add("Okay lett's see what we can get up to today");
     }
 
     function customPayloadDemo(agent){
@@ -48,12 +48,12 @@ app.post('/', express.json(), (req, res)=>{
     // Confirming #capture-fullname.firstname #capture-fullname.lastname with phone number $phone-number wishes to travel from #capture-to.travel-from to #capture-date.travel-to on #capture-schedule.travel-date.original in the #confirm-booking.travel-time
 
     function confirmationMessage(agent){
-        var fullname = agent.context("capture-fullname");
-        var phone = agent.context("phone-number");
-        var travelFrom = agent.context("capture-to");
-        var travelTo = agent.context("capture-date");
-        var travelDate = agent.context("capture-schedule");
-        var travelTime = agent.context("confirm-booking");
+        var fullname = agent.context.get("capture-fullname");
+        var phone = agent.context.get("phone-number");
+        var travelFrom = agent.context.get("capture-to");
+        var travelTo = agent.context.get("capture-date");
+        var travelDate = agent.context.get("capture-schedule");
+        var travelTime = agent.context.get("confirm-booking");
 
         console.log(fullname);
         console.log(phone);
