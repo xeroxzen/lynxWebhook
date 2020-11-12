@@ -8,8 +8,6 @@ const app = express();
 const dfff = require('dialogflow-fulfillment');
 const {Card, Suggestion} = require('dialogflow-fulfillment');
 
-
-
 var admin = require("firebase-admin");
 
 var serviceAccount = require("./config/lynxwebhook-firebase-adminsdk-q590u-6fb2939cc9.json");
@@ -88,7 +86,7 @@ app.post('/dialogflow-fulfillment', express.json(), (req, res)=>{
         var travelDate = agent.context.get("capture-schedule").parameters["travel-date"];
         var travelTime = agent.context.get("confirm-booking").parameters["travel-time"];
 
-        agent.add(`BOOKING CONFIRMATION \nFULL NAME: ${firstname} ${lastname}, \nPHONE NUMBER: ${phone}, \nTRIP: ${travelFrom} to ${travelTo}, \nDATE: ${travelDate}, \nTIME: ${travelTime} \nSafe Travels with City Link`);
+        agent.add(`BOOKING CONFIRMATION \nFULL NAME: ${firstname} ${lastname} \nPHONE NUMBER: ${phone} \nTRIP: ${travelFrom} to ${travelTo} \nDATE: ${travelDate} \nTIME: ${travelTime} \n\nSafe Travels with City Link Luxury Coaches`);
 
         return db.collection('tickets').add({
             firstname: firstname,
@@ -102,7 +100,7 @@ app.post('/dialogflow-fulfillment', express.json(), (req, res)=>{
 
         }).then(ref =>
             //fetching free slots
-            console.log("Ticket details added")
+            console.log("Ticket successfully added.")
             )
     }
 
