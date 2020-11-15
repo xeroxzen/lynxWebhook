@@ -88,7 +88,6 @@ app.post('/dialogflow-fulfillment', express.json(), (req, res)=>{
 
         // Save human readable date
         const dateObject = new Date();
-        const humanDateObject = dateObject.toLocaleString()
 
         agent.add(`BOOKING CONFIRMATION \nFULL NAME: ${firstname} ${lastname} \nPHONE NUMBER: ${phone} \nTRIP: ${travelFrom} to ${travelTo} \nDATE: ${travelDate} \nTIME: ${travelTime} \n\nSafe Travels with City Link Luxury Coaches`);
 
@@ -100,7 +99,7 @@ app.post('/dialogflow-fulfillment', express.json(), (req, res)=>{
             travelTo: travelTo,
             travelDate: travelDate,
             travelTime: travelTime,
-            time: humanDateObject
+            time: dateObject
 
         }).then(ref =>
             //fetching free slots
