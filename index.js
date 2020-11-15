@@ -100,7 +100,8 @@ app.post('/dialogflow-fulfillment', express.json(), (req, res)=>{
             travelTo: travelTo,
             travelDate: travelDate,
             travelTime: travelTime,
-            time: dateObject
+            time: dateObject,
+            actualTravelDate: actualTravelDate
 
         }).then(ref =>
             //fetching free slots
