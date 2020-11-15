@@ -86,6 +86,10 @@ app.post('/dialogflow-fulfillment', express.json(), (req, res)=>{
         var travelDate = agent.context.get("capture-schedule").parameters["travel-date"];
         var travelTime = agent.context.get("confirm-booking").parameters["travel-time"];
 
+        // Save human readable date
+        const dateObject = new Date();
+        const humanDateObject = dateObject.toLocaleString()
+
         agent.add(`BOOKING CONFIRMATION \nFULL NAME: ${firstname} ${lastname} \nPHONE NUMBER: ${phone} \nTRIP: ${travelFrom} to ${travelTo} \nDATE: ${travelDate} \nTIME: ${travelTime} \n\nSafe Travels with City Link Luxury Coaches`);
 
         return db.collection('tickets').add({
@@ -96,7 +100,7 @@ app.post('/dialogflow-fulfillment', express.json(), (req, res)=>{
             travelTo: travelTo,
             travelDate: travelDate,
             travelTime: travelTime,
-            time: Date.now()
+            time: humanDateObject
 
         }).then(ref =>
             //fetching free slots
