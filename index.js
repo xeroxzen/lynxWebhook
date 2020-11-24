@@ -100,11 +100,13 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     ];
 
     // Let's join firstname, lastname and person.
-    var fullname = [firstname + " " + lastname];
+    var fullname = firstname + " " + lastname;
 
     // Let's talk to our agent
     agent.add(
-      `Confirming ${fullname} with phone number ${phone} wishes to travel from ${travelFrom} to ${travelTo} on ${travelDate} in the ${travelTime}`
+      `Confirming ${
+        fullname || person
+      } with phone number ${phone} wishes to travel from ${travelFrom} to ${travelTo} on ${travelDate} in the ${travelTime}`
     );
   }
 
@@ -132,7 +134,9 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     var trip = travelFrom + " to " + travelTo;
 
     agent.add(
-      `BOOKING CONFIRMATION \nNAME: ${fullname} \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nDATE: ${travelDate} \nTIME: ${travelTime} \n\nSafe Travels with City Link Luxury Coaches`
+      `BOOKING CONFIRMATION \nNAME: ${
+        fullname || person
+      } \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nDATE: ${travelDate} \nTIME: ${travelTime} \n\nSafe Travels with City Link Luxury Coaches`
     );
 
     return db
@@ -154,7 +158,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
         (ref) =>
           //fetching free slots
           console.log("Ticket successfully added."),
-        agent.add("Ticket reservation confirmed")
+        agent.add("Ticket reservation successful")
       );
   }
 
