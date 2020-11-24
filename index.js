@@ -108,7 +108,10 @@ app.post('/dialogflow-fulfillment', express.json(), (req, res)=>{
         // Save human readable date
         const dateObject = new Date();
 
-        agent.add(`BOOKING CONFIRMATION \nFULL NAME: ${firstname} ${lastname} ${person} \nPHONE NUMBER: ${phone} \nTRIP: ${travelFrom} to ${travelTo} \nDATE: ${travelDate} \nTIME: ${travelTime} \n\nSafe Travels with City Link Luxury Coaches`);
+        // Let's join firstname, lastname and person.
+        var fullname = [firstname + ' ' + lastname, person];
+
+        agent.add(`BOOKING CONFIRMATION \nFULL NAME: ${fullname} \nPHONE NUMBER: ${phone} \nTRIP: ${travelFrom} to ${travelTo} \nDATE: ${travelDate} \nTIME: ${travelTime} \n\nSafe Travels with City Link Luxury Coaches`);
 
         return db.collection('tickets').add({
             firstname: firstname,
