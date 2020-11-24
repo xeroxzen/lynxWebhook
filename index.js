@@ -75,6 +75,24 @@ app.post('/dialogflow-fulfillment', express.json(), (req, res)=>{
         agent.add( new dfff.Payload(agent.UNSPECIFIED, payloadData, {sendAsMessage: true, rawPayload: true }) )
         //agent.add("This is the custom payload function")
     }
+
+    function confirmBooking(agent) {
+        var firstname = agent.context.get("capture-fullname").parameters.firstname;
+        var lastname = agent.context.get("capture-fullname").parameters.lastname;
+        var person = agent.context.get("capture-fullname").parameters.person;
+        var phone = agent.context.get("confirm-ticket").parameters["phone-number"];
+        var travelFrom = agent.context.get("capture-to").parameters["travel-from"];
+        var travelTo = agent.context.get("capture-date").parameters["travel-to"];
+        var travelDate = agent.context.get("capture-schedule").parameters["travel-date"];
+        var travelTime = agent.context.get("confirm-booking").parameters["travel-time"];
+        
+        // Let's join firstname, lastname and person.
+        var fullname = [firstname + ' ' + lastname, person];
+
+        // Let's talk to our agent
+        agent.add(`Confirming ${fullname} with phone number ${phone} wishes to travel from ${travelFrom} to ${travelTo} on ${travelDate} in the ${travelTime}`);
+    }
+    
     // Confirming #capture-fullname.firstname #capture-fullname.lastname with phone number $phone-number wishes to travel from #capture-to.travel-from to #capture-date.travel-to on #capture-schedule.travel-date.original in the #confirm-booking.travel-time
 
     function confirmationMessage(agent){
