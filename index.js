@@ -108,8 +108,9 @@ app.post('/dialogflow-fulfillment', express.json(), (req, res)=>{
         // Save human readable date
         const dateObject = new Date();
 
-        // Let's join firstname, lastname and person.
+        // Let's join firstname, lastname
         var fullname = (firstname + ' ' + lastname);
+        var trip = (travelFrom + ' to ' + travelTo);
 
         agent.add(`BOOKING CONFIRMATION \nFULL NAME: ${fullname} \nPHONE NUMBER: ${phone} \nTRIP: ${travelFrom} to ${travelTo} \nDATE: ${travelDate} \nTIME: ${travelTime} \n\nSafe Travels with City Link Luxury Coaches`);
 
@@ -119,15 +120,17 @@ app.post('/dialogflow-fulfillment', express.json(), (req, res)=>{
             fullname: fullname,
             person: person,
             phone: phone,
-            travelFrom: travelFrom,
-            travelTo: travelTo,
+            // travelFrom: travelFrom,
+            // travelTo: travelTo,
+            trip: trip,
             travelDate: travelDate,
             travelTime: travelTime,
             time: dateObject
 
         }).then(ref =>
             //fetching free slots
-            console.log("Ticket successfully added.")
+            console.log("Ticket successfully added."),
+            agent.add('Ticket reservation made')
             )
     }
 
