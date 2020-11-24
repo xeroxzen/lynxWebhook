@@ -80,6 +80,7 @@ app.post('/dialogflow-fulfillment', express.json(), (req, res)=>{
     function confirmationMessage(agent){
         var firstname = agent.context.get("capture-fullname").parameters.firstname;
         var lastname = agent.context.get("capture-fullname").parameters.lastname;
+        var person = agent.context.get("capture-fullname").parameters.person;
         var phone = agent.context.get("confirm-ticket").parameters["phone-number"];
         var travelFrom = agent.context.get("capture-to").parameters["travel-from"];
         var travelTo = agent.context.get("capture-date").parameters["travel-to"];
@@ -89,11 +90,12 @@ app.post('/dialogflow-fulfillment', express.json(), (req, res)=>{
         // Save human readable date
         const dateObject = new Date();
 
-        agent.add(`BOOKING CONFIRMATION \nFULL NAME: ${firstname} ${lastname} \nPHONE NUMBER: ${phone} \nTRIP: ${travelFrom} to ${travelTo} \nDATE: ${travelDate} \nTIME: ${travelTime} \n\nSafe Travels with City Link Luxury Coaches`);
+        agent.add(`BOOKING CONFIRMATION \nFULL NAME: ${firstname} ${lastname} || ${person} \nPHONE NUMBER: ${phone} \nTRIP: ${travelFrom} to ${travelTo} \nDATE: ${travelDate} \nTIME: ${travelTime} \n\nSafe Travels with City Link Luxury Coaches`);
 
         return db.collection('tickets').add({
             firstname: firstname,
             lastname: lastname,
+            person: person,
             phone: phone,
             travelFrom: travelFrom,
             travelTo: travelTo,
