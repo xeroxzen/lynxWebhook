@@ -90,7 +90,7 @@ app.post('/dialogflow-fulfillment', express.json(), (req, res)=>{
         // Save human readable date
         const dateObject = new Date();
 
-        agent.add(`BOOKING CONFIRMATION \nFULL NAME: ${firstname} ${lastname} || ${person} \nPHONE NUMBER: ${phone} \nTRIP: ${travelFrom} to ${travelTo} \nDATE: ${travelDate} \nTIME: ${travelTime} \n\nSafe Travels with City Link Luxury Coaches`);
+        agent.add(`BOOKING CONFIRMATION \nFULL NAME: ${firstname} ${lastname} ${person} \nPHONE NUMBER: ${phone} \nTRIP: ${travelFrom} to ${travelTo} \nDATE: ${travelDate} \nTIME: ${travelTime} \n\nSafe Travels with City Link Luxury Coaches`);
 
         return db.collection('tickets').add({
             firstname: firstname,
@@ -109,10 +109,15 @@ app.post('/dialogflow-fulfillment', express.json(), (req, res)=>{
             )
     }
 
+    function viewTickets() {
+        agent.add(`We're yet to work on this function...`)
+    }
+
     var intentMap = new Map();
     intentMap.set('webhookDemo', demo)
     intentMap.set('customPayloadDemo', customPayloadDemo)
     intentMap.set('confirmationMessage', confirmationMessage)
+    intentMap.set('viewTickets', viewTickets)
     intentMap.set('somethingNice', somethingNice)
     intentMap.set('somethingCrazy', somethingCrazy)
 
