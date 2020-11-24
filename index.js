@@ -131,7 +131,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
 
     // Let's join firstname, lastname
     var fullname = firstname + " " + lastname;
-    var personName = person.toString();
+    var personName = person;
     var trip = travelFrom + " to " + travelTo;
 
     agent.add(
