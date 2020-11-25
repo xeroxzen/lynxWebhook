@@ -145,8 +145,8 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
       .add({
         //firstname: firstname,
         //lastname: lastname,
-        fullname: fullname || busRider,
-        busRider: busRider || fullname, // combine these two so it cuts out unoccupied storage
+        fullname: fullname && busRider,
+        busRider: busRider && fullname, // combine these two so it cuts out unoccupied storage
         phone: phone,
         // travelFrom: travelFrom,
         // travelTo: travelTo,
