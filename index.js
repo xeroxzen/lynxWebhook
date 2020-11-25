@@ -135,7 +135,9 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     var trip = travelFrom + " to " + travelTo; // save trip instead of travelFrom and travelTo
 
     agent.add(
-      `BOOKING CONFIRMATION \nNAME: ${fullname} \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nDATE: ${travelDate} \nTIME: ${travelTime} \n\nSafe Travels with City Link Luxury Coaches`
+      `BOOKING CONFIRMATION \nNAME: ${
+        fullname || busRider
+      } \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nDATE: ${travelDate} \nTIME: ${travelTime} \n\nSafe Travels with City Link Luxury Coaches`
     );
 
     return db
@@ -143,13 +145,14 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
       .add({
         //firstname: firstname,
         //lastname: lastname,
-        fullname: fullname || busRider, // combine these two so it cuts out unoccupied storage
+        fullname: fullname,
+        busRider: busRider, // combine these two so it cuts out unoccupied storage
         phone: phone,
         // travelFrom: travelFrom,
         // travelTo: travelTo,
         trip: trip,
-        travelDate: travelDate,
-        travelTime: travelTime,
+        dateOfTravel: travelDate,
+        timeOfTravel: travelTime,
         time: dateObject,
       })
       .then(
