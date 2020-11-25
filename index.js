@@ -131,7 +131,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
 
     // Let's join firstname, lastname
     var busRider = person[0].name;
-    var fullname = firstname + " " + lastname || busRider;
+    var fullname = firstname + " " + lastname;
     var trip = travelFrom + " to " + travelTo; // save trip instead of travelFrom and travelTo
 
     agent.add(
@@ -145,8 +145,8 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
       .add({
         //firstname: firstname,
         //lastname: lastname,
-        fullname: fullname,
-        busRider: busRider, // combine these two so it cuts out unoccupied storage
+        fullname: fullname || busRider,
+        busRider: busRider || fullname, // combine these two so it cuts out unoccupied storage
         phone: phone,
         // travelFrom: travelFrom,
         // travelTo: travelTo,
