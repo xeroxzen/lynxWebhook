@@ -130,14 +130,12 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     const dateObject = new Date();
 
     // Let's join firstname, lastname
-    var fullname = firstname + " " + lastname;
     var busRider = person[0].name;
+    var fullname = firstname + " " + lastname || busRider;
     var trip = travelFrom + " to " + travelTo;
 
     agent.add(
-      `BOOKING CONFIRMATION \nNAME: ${
-        fullname || busRider
-      } \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nDATE: ${travelDate} \nTIME: ${travelTime} \n\nSafe Travels with City Link Luxury Coaches`
+      `BOOKING CONFIRMATION \nNAME: ${fullname} \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nDATE: ${travelDate} \nTIME: ${travelTime} \n\nSafe Travels with City Link Luxury Coaches`
     );
 
     return db
@@ -145,8 +143,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
       .add({
         //firstname: firstname,
         //lastname: lastname,
-        fullname: fullname,
-        busRider: busRider,
+        fullname: fullname, // combine these two so it cuts out unoccupied storage
         phone: phone,
         // travelFrom: travelFrom,
         // travelTo: travelTo,
