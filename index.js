@@ -146,7 +146,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
         //firstname: firstname,
         //lastname: lastname,
         fullname: fullname,
-        busRider: busRider,
+        busRider: busRider.toString(),
         phone: phone,
         // travelFrom: travelFrom,
         // travelTo: travelTo,
