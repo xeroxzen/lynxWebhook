@@ -130,8 +130,8 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     const dateObject = new Date();
 
     // Let's join firstname, lastname
-    var busRider = person;
     var fullname = `${firstname} ${lastname}`;
+    var busRider = `${person || fullname}`;
     var trip = `${travelFrom} to ${travelTo}`; // save trip instead of travelFrom and travelTo
 
     agent.add(
