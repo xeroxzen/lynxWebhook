@@ -130,13 +130,13 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     const dateObject = new Date();
 
     // Let's join firstname, lastname
-    var busRider = person[0].name;
+    var busRider = person;
     var fullname = `${firstname} ${lastname}`;
     var trip = `${travelFrom} to ${travelTo}`; // save trip instead of travelFrom and travelTo
 
     agent.add(
       `BOOKING CONFIRMATION \nNAME: ${
-        fullname || busRider
+        fullname || busRider[0]
       } \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nDATE: ${travelDate} \nTIME: ${travelTime} \n\nSafe Travels with City Link Luxury Coaches`
     );
 
