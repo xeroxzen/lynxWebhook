@@ -100,13 +100,13 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     ];
 
     // Let's join firstname, lastname and person.
-    var fullname = firstname + " " + lastname;
+    var fullname = `${firstname} ${lastname}`;
 
     // Let's talk to our agent
     agent.add(
-      `Confirming ${
+      `Confirm ${
         fullname || person
-      } with phone number ${phone} wishes to travel from ${travelFrom} to ${travelTo} on ${travelDate} in the ${travelTime}`
+      } with phone number ${phone} wishes to travel from ${travelFrom} to ${travelTo} on ${travelDate} in the ${travelTime}. \nTo proceed type Yes or No to Cancel`
     );
   }
 
@@ -131,8 +131,8 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
 
     // Let's join firstname, lastname
     var busRider = person[0].name;
-    var fullname = firstname + " " + lastname;
-    var trip = travelFrom + " to " + travelTo; // save trip instead of travelFrom and travelTo
+    var fullname = `${firstname} ${lastname}`;
+    var trip = `${travelFrom} to ${travelTo}`; // save trip instead of travelFrom and travelTo
 
     agent.add(
       `BOOKING CONFIRMATION \nNAME: ${
@@ -146,7 +146,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
         //firstname: firstname,
         //lastname: lastname,
         fullname: fullname,
-        busRider: busRider, // combine these two so it cuts out unoccupied storage
+        busRider: busRider,
         phone: phone,
         // travelFrom: travelFrom,
         // travelTo: travelTo,
