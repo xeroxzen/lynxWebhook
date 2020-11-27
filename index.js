@@ -87,7 +87,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
 
   function askBookingFrom(agent) {
     agent.add(
-      "Please tell us where you are traveling from? \n\nThe routes we cover include only Bulawayo, Chegutu, Gweru, Kadoma, Kwekwe and Harare"
+      "Please tell us where you are traveling from? \n\nRoutes covered include Bulawayo, Chegutu, Gweru, Kadoma, Kwekwe and Harare."
     );
   }
 
@@ -97,13 +97,22 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     );
   }
 
+  function catchError(agent) {
+    // var travelFrom = agent.context.get("capture-to").parameters["travel-from"];
+    // var travelTo = agent.context.get("capture-date").parameters["travel-to"];
+
+    if (agent.travelFrom == agent.travelTo) {
+      agent.add("The departure city and the destination cannot be the same.");
+    }
+  }
+
   function confirmBooking(agent) {
     var firstname = agent.context.get("capture-fullname").parameters.firstname;
     var lastname = agent.context.get("capture-fullname").parameters.lastname;
     var person = agent.context.get("capture-fullname").parameters.person;
     var phone = agent.context.get("confirm-ticket").parameters["phone-number"];
-    var travelFrom = agent.context.get("capture-to").parameters["travel-from"];
-    var travelTo = agent.context.get("capture-date").parameters["travel-to"];
+    var travelFrom = agent.context.get("capture-to").parameters["travelFrom"];
+    var travelTo = agent.context.get("capture-date").parameters["travelTo"];
     var travelDate = agent.context.get("capture-schedule").parameters[
       "travel-date"
     ];
@@ -129,8 +138,8 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     var lastname = agent.context.get("capture-fullname").parameters.lastname;
     var person = agent.context.get("capture-fullname").parameters.person;
     var phone = agent.context.get("confirm-ticket").parameters["phone-number"];
-    var travelFrom = agent.context.get("capture-to").parameters["travel-from"];
-    var travelTo = agent.context.get("capture-date").parameters["travel-to"];
+    var travelFrom = agent.context.get("capture-to").parameters.travelFrom;
+    var travelTo = agent.context.get("capture-date").parameters.travelTo;
     var travelDate = agent.context.get("capture-schedule").parameters[
       "travel-date"
     ];
