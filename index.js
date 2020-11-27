@@ -183,7 +183,9 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
   }
 
   function viewTickets() {
-    agent.add(`We're yet to work on this function...`);
+    // agent.add(`We're yet to work on this function...`);
+    agent.add(confirmationMessage(agent));
+    // confirmationMessage(agent);
   }
 
   var intentMap = new Map();
