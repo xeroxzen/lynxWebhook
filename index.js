@@ -148,8 +148,6 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
         fullname: fullname,
         busRider: busRider.toString(),
         phone: phone,
-        // travelFrom: travelFrom,
-        // travelTo: travelTo,
         trip: trip,
         dateOfTravel: travelDate,
         timeOfTravel: travelTime,
@@ -181,4 +179,5 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
 
 app.listen(port, () => {
   console.log(`Server is live at port ${port}`);
+  console.log("Press Ctrl+C to abort connection")
 });
