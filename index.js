@@ -87,7 +87,13 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
 
   function askBookingFrom(agent) {
     agent.add(
-      "Please tell us where you are traveling from. The routes we cover include only Bulawayo, Chegutu, Gweru, Kadoma, Kwekwe and Harare"
+      "Please tell us where you are traveling from? \n\nThe routes we cover include only Bulawayo, Chegutu, Gweru, Kadoma, Kwekwe and Harare"
+    );
+  }
+
+  function askBookingTo(agent) {
+    agent.add(
+      "What is your travel destination? \n\nRoutes covered include Bulawayo, Chegutu, Gweru, Kadoma, Kwekwe and Harare."
     );
   }
 
