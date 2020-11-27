@@ -180,6 +180,8 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
   var intentMap = new Map();
   intentMap.set("webhookDemo", demo);
   intentMap.set("customPayloadDemo", customPayloadDemo);
+  intentMap.set("askBookingFrom", askBookingFrom);
+  intentMap.set("askBookingTo", askBookingTo);
   intentMap.set("confirmBooking", confirmBooking);
   intentMap.set("confirmationMessage", confirmationMessage);
   intentMap.set("viewTickets", viewTickets);
