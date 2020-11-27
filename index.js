@@ -42,7 +42,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     agent.add(
       "We are live, sending response from Webhook server as [Version 1.1.11.1]"
     );
-    agent.add("Okay lett's see what we can get up to today");
+    agent.add("Okay let's see what we can get up to today");
   }
 
   function somethingNice(agent) {
@@ -86,15 +86,15 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
   }
 
   function askBookingFrom(agent) {
-    agent.add(
-      "Please tell us where you are traveling from? \n\nRoutes covered include Bulawayo, Chegutu, Gweru, Kadoma, Kwekwe and Harare."
-    );
+    const departure =
+      "Please tell us where you are traveling from? \n\nRoutes covered include Bulawayo, Chegutu, Gweru, Kadoma, Kwekwe and Harare.";
+    agent.add(departure);
   }
 
   function askBookingTo(agent) {
-    agent.add(
-      "What is your travel destination? \n\nRoutes covered include Bulawayo, Chegutu, Gweru, Kadoma, Kwekwe and Harare."
-    );
+    const destination =
+      "What is your travel destination? \n\nRoutes covered include Bulawayo, Chegutu, Gweru, Kadoma, Kwekwe and Harare.";
+    agent.add(destination);
   }
 
   function catchError(agent) {
@@ -111,8 +111,8 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     var lastname = agent.context.get("capture-fullname").parameters.lastname;
     var person = agent.context.get("capture-fullname").parameters.person;
     var phone = agent.context.get("confirm-ticket").parameters["phone-number"];
-    var travelFrom = agent.context.get("capture-to").parameters["travelFrom"];
-    var travelTo = agent.context.get("capture-date").parameters["travelTo"];
+    var travelFrom = agent.context.get("capture-to").parameters.travelFrom;
+    var travelTo = agent.context.get("capture-date").parameters.travelTo;
     var travelDate = agent.context.get("capture-schedule").parameters[
       "travel-date"
     ];
@@ -167,7 +167,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
         //firstname: firstname,
         //lastname: lastname,
         fullname: fullname,
-        busRider: busRider.toString(),
+        busRider: busRider,
         phone: phone,
         trip: trip,
         dateOfTravel: travelDate,
