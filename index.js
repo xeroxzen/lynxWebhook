@@ -85,6 +85,12 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     //agent.add("This is the custom payload function")
   }
 
+  function askBookingFrom(agent) {
+    agent.add(
+      "Please tell us where you are traveling from. The routes we cover include only Bulawayo, Chegutu, Gweru, Kadoma, Kwekwe and Harare"
+    );
+  }
+
   function confirmBooking(agent) {
     var firstname = agent.context.get("capture-fullname").parameters.firstname;
     var lastname = agent.context.get("capture-fullname").parameters.lastname;
@@ -179,5 +185,5 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
 
 app.listen(port, () => {
   console.log(`Server is live at port ${port}`);
-  console.log("Press Ctrl+C to abort connection")
+  console.log("Press Ctrl+C to abort connection");
 });
