@@ -133,11 +133,17 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     var busRider = `${person}`;
     var trip = `${travelFrom} to ${travelTo}`; // save trip instead of travelFrom and travelTo
 
-    agent.add(
-      `BOOKING CONFIRMATION \nNAME: ${
-        fullname || busRider[0]
-      } \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nDATE: ${travelDate} \nTIME: ${travelTime} \n\nSafe Travels with City Link Luxury Coaches`
-    );
+    if (travelFrom == travelTo) {
+      agent.add(
+        `The trip departure point cannot be the same as the destination`
+      );
+    } else {
+      agent.add(
+        `BOOKING CONFIRMATION \nNAME: ${
+          fullname || busRider[0]
+        } \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nDATE: ${travelDate} \nTIME: ${travelTime} \n\nSafe Travels with City Link Luxury Coaches`
+      );
+    }
 
     return db
       .collection("tickets")
