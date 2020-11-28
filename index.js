@@ -57,34 +57,6 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     );
   }
 
-  function customPayloadDemo(agent) {
-    var payloadData = {
-      richContent: [
-        [
-          {
-            type: "accordion",
-            title: "Accordion title",
-            subtitle: "Accordion subtitle",
-            image: {
-              src: {
-                rawUrl: "https://example.com/images/logo.png",
-              },
-            },
-            text: "Accordion text",
-          },
-        ],
-      ],
-    };
-
-    agent.add(
-      new dfff.Payload(agent.UNSPECIFIED, payloadData, {
-        sendAsMessage: true,
-        rawPayload: true,
-      })
-    );
-    //agent.add("This is the custom payload function")
-  }
-
   function askBookingFrom(agent) {
     const departure =
       "Please tell us where you are traveling from? \n\nRoutes covered include Bulawayo, Chegutu, Gweru, Kadoma, Kwekwe and Harare.";
@@ -152,7 +124,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
 
     // Let's join firstname, lastname
     var fullname = `${firstname} ${lastname}`;
-    var busRider = `${person || fullname}`;
+    var busRider = `${person}`;
     var trip = `${travelFrom} to ${travelTo}`; // save trip instead of travelFrom and travelTo
 
     agent.add(
