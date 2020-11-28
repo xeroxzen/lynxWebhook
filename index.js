@@ -38,6 +38,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     response: res,
   });
 
+  // First function, let's test if we are running live
   function demo(agent) {
     agent.add(
       "We are live, sending response from Webhook server as [Version 1.1.11.1]"
@@ -45,28 +46,33 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     agent.add("Okay let's see what we can get up to today");
   }
 
+  // Second function: this is for telling something nice
   function somethingNice(agent) {
     agent.add("Awesome Work");
   }
 
+  // Third function: tells a joke
   function somethingCrazy(agent) {
     agent.add(
       "Why were they called the Dark Ages? Because there were lots of knights."
     );
   }
 
+  // Prompt the user for where they're travelling from
   function askBookingFrom(agent) {
     const departure =
       "Please tell us where you are traveling from? \n\nRoutes covered include Bulawayo, Chegutu, Gweru, Kadoma, Kwekwe and Harare.";
     agent.add(departure);
   }
 
+  // Prompt the user for where they're travelling to
   function askBookingTo(agent) {
     const destination =
       "What is your travel destination? \n\nRoutes covered include Bulawayo, Chegutu, Gweru, Kadoma, Kwekwe and Harare.";
     agent.add(destination);
   }
 
+  // Catch errors if the travel departure point and destination point are the same.
   function catchError(agent) {
     // var travelFrom = agent.context.get("capture-to").parameters["travel-from"];
     // var travelTo = agent.context.get("capture-date").parameters["travel-to"];
@@ -76,6 +82,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     }
   }
 
+  // Confirm data before saving to db
   function confirmBooking(agent) {
     var firstname = agent.context.get("capture-fullname").parameters.firstname;
     var lastname = agent.context.get("capture-fullname").parameters.lastname;
@@ -103,6 +110,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
 
   // Confirming #capture-fullname.firstname #capture-fullname.lastname with phone number $phone-number wishes to travel from #capture-to.travel-from to #capture-date.travel-to on #capture-schedule.travel-date.original in the #confirm-booking.travel-time
 
+  // Save the user data to the db
   function confirmationMessage(agent) {
     var firstname = agent.context.get("capture-fullname").parameters.firstname;
     var lastname = agent.context.get("capture-fullname").parameters.lastname;
@@ -152,15 +160,16 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
       );
   }
 
+  // view all ordered tickets
   function viewTickets() {
     agent.add(`We're yet to work on this function...`);
-    agent.add(confirmationMessage(agent));
     // confirmationMessage(agent);
   }
 
+  // intentMaps, more like a register for all functions
   var intentMap = new Map();
   intentMap.set("webhookDemo", demo);
-  intentMap.set("customPayloadDemo", customPayloadDemo);
+  // intentMap.set("customPayloadDemo", customPayloadDemo);
   intentMap.set("askBookingFrom", askBookingFrom);
   intentMap.set("askBookingTo", askBookingTo);
   intentMap.set("confirmBooking", confirmBooking);
