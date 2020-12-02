@@ -72,16 +72,6 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     agent.add(destination);
   }
 
-  // Catch errors if the travel departure point and destination point are the same.
-  function catchError(agent) {
-    // var travelFrom = agent.context.get("capture-to").parameters["travel-from"];
-    // var travelTo = agent.context.get("capture-date").parameters["travel-to"];
-
-    if (agent.travelFrom == agent.travelTo) {
-      agent.add("The departure city and the destination cannot be the same.");
-    }
-  }
-
   // Confirm data before saving to db
   function confirmBooking(agent) {
     var firstname = agent.context.get("capture-fullname").parameters.firstname;
@@ -175,7 +165,6 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
   // intentMaps, more like a register for all functions
   var intentMap = new Map();
   intentMap.set("webhookDemo", demo);
-  // intentMap.set("customPayloadDemo", customPayloadDemo);
   intentMap.set("askBookingFrom", askBookingFrom);
   intentMap.set("askBookingTo", askBookingTo);
   intentMap.set("confirmBooking", confirmBooking);
