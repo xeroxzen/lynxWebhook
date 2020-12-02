@@ -157,7 +157,6 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
   // view all ordered tickets
   function viewTickets() {
     agent.add(`We're yet to work on this function...`);
-    // confirmationMessage(agent);
   }
 
   // intentMaps, more like a register for all functions
