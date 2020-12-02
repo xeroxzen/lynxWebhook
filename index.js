@@ -98,8 +98,6 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     );
   }
 
-  // Confirming #capture-fullname.firstname #capture-fullname.lastname with phone number $phone-number wishes to travel from #capture-to.travel-from to #capture-date.travel-to on #capture-schedule.travel-date.original in the #confirm-booking.travel-time
-
   // Save the user data to the db
   function confirmationMessage(agent) {
     var firstname = agent.context.get("capture-fullname").parameters.firstname;
