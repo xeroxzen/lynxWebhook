@@ -84,6 +84,11 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
       agent.add(
         `The trip departure point cannot be the same as the destination. Please start again your booking process. Type Start Over`
       );
+    } else if (travelFrom == null) {
+      console.log("Blank departure point");
+      agent.add(
+        `The trip departure point cannot be empty. Please start again your booking process. Type Start Over`
+      );
     } else {
       console.log(trip);
       agent.add(
