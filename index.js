@@ -76,7 +76,10 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     var travelFrom = agent.context.get("capture-to").parameters.travelFrom;
     var travelTo = agent.context.get("capture-date").parameters.travelTo;
 
-    if (travelFrom == travelTo) {
+    // simplify
+    var trip = `${travelFrom} to ${travelTo}`;
+
+    if (travelFrom === travelTo) {
       agent.add(
         `The trip departure point cannot be the same as the destination. Please start again your booking process. Type Start Over`
       );
