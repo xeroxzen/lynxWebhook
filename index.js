@@ -73,8 +73,8 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
   }
 
   function askBookingDate(agent) {
-    var travelFrom = agent.context.get("capture-to").parameters.travelFrom;
-    var travelTo = agent.context.get("capture-date").parameters.travelTo;
+    let travelFrom = agent.context.get("capture-to").parameters.travelFrom;
+    let travelTo = agent.context.get("capture-date").parameters.travelTo;
 
     // simplify
     var trip = `${travelFrom} to ${travelTo}`;
