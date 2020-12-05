@@ -79,11 +79,13 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     // simplify
     var trip = `${travelFrom} to ${travelTo}`;
 
-    if (travelFrom === travelTo) {
+    if (travelFrom == travelTo) {
+      console.log(trip);
       agent.add(
         `The trip departure point cannot be the same as the destination. Please start again your booking process. Type Start Over`
       );
     } else {
+      console.log(trip);
       agent.add(
         `On what date would you like to travel? \n\nExample: 30 December 2020 or next week Thursday`
       );
