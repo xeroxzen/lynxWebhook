@@ -72,6 +72,21 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     agent.add(destination);
   }
 
+  function askBookingDate(agent) {
+    var travelFrom = agent.context.get("capture-to").parameters.travelFrom;
+    var travelTo = agent.context.get("capture-date").parameters.travelTo;
+
+    if (travelFrom == travelTo) {
+      agent.add(
+        `The trip departure point cannot be the same as the destination. Please start again your booking process. Type Start Over`
+      );
+    } else {
+      agent.add(
+        `On what date would you like to travel? \n\nExample: 30 December 2020 or next week Thursday`
+      );
+    }
+  }
+
   // Confirm data before saving to db
   function confirmBooking(agent) {
     var firstname = agent.context.get("capture-fullname").parameters.firstname;
@@ -164,6 +179,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
   intentMap.set("webhookDemo", demo);
   intentMap.set("askBookingFrom", askBookingFrom);
   intentMap.set("askBookingTo", askBookingTo);
+  intentMap.set("askBookingDate", askBookingDate);
   intentMap.set("confirmBooking", confirmBooking);
   intentMap.set("confirmationMessage", confirmationMessage);
   intentMap.set("viewTickets", viewTickets);
