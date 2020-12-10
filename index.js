@@ -62,6 +62,10 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     agent.add("I am an AI assistant, you can call me Lynx");
   }
 
+  function bitOff(agent) {
+    agent.add("That's what I'm trying to figure out...")
+  }
+
   // Prompt the user for where they're travelling from
   function askBookingFrom(agent) {
     const departure =
