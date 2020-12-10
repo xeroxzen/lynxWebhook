@@ -58,6 +58,10 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     );
   }
 
+  function askName(agent) {
+    agent.add("I am an AI assistant, you can call me Lynx");
+  }
+
   // Prompt the user for where they're travelling from
   function askBookingFrom(agent) {
     const departure =
@@ -161,7 +165,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
           //firstname: firstname,
           //lastname: lastname,
           fullname: fullname,
-          busRider: busRider.toString(),
+          busRider: busRider,
           phone: phone,
           trip: trip,
           dateOfTravel: travelDate,
@@ -188,6 +192,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
   intentMap.set("askBookingFrom", askBookingFrom);
   intentMap.set("askBookingTo", askBookingTo);
   intentMap.set("askBookingDate", askBookingDate);
+  intentMap.set("askName", askName);
   intentMap.set("confirmBooking", confirmBooking);
   intentMap.set("confirmationMessage", confirmationMessage);
   intentMap.set("viewTickets", viewTickets);
