@@ -63,7 +63,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
   }
 
   function bitOff(agent) {
-    agent.add("That's what I'm trying to figure out...")
+    agent.add("That's what I'm trying to figure out...");
   }
 
   // Prompt the user for where they're travelling from
@@ -139,9 +139,9 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     var phone = agent.context.get("confirm-ticket").parameters["phone-number"];
     var travelFrom = agent.context.get("capture-to").parameters.travelFrom;
     var travelTo = agent.context.get("capture-date").parameters.travelTo;
-    var travelDate = agent.context.get("capture-schedule").parameters[
-      "travel-date"
-    ];
+    var travelDate = agent.context
+      .get("capture-schedule")
+      .parameters["travel-date"].split("T")[0];
     var travelTime = agent.context.get("confirm-booking").parameters[
       "travel-time"
     ];
