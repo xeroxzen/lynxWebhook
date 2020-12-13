@@ -186,8 +186,13 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
   }
 
   // view all ordered tickets
-  function viewTickets() {
+  function viewTickets(agent) {
     agent.add(`Give us the name of the person whom the ticket was issued to.`);
+  }
+
+  // ticket issued
+  function issuedTo(agent) {
+      
   }
 
   // intentMaps, more like a register for all functions
