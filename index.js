@@ -160,7 +160,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
       );
     } else {
       agent.add(
-        `BOOKING CONFIRMATION \nNAME: ${fullname} \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nDATE: ${travelDate} \nTIME: ${travelTime} \n\nSafe Travels with City Link Luxury Coaches`
+        `BOOKING CONFIRMATION \n\nNAME: ${fullname} \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nDATE: ${travelDate} \nTIME: ${travelTime} \n\nSafe Travels with City Link Luxury Coaches`
       );
 
       return db
