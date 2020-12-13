@@ -191,27 +191,27 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
   }
 
   // reading data from db
-  // function issuedTo(agent) {
-  //     // name
-  //     var name = agent.context.get("viewTicket").parameters["given-name"];
-  //     var surname = agent.context.get("viewTicket").parameters["last-name"];
-  //
-  //     // combine name and surname
-  //     var issue = `${name} ${surname}`;
-  //     // get collection
-  //     var tickets = await db.collection('tickets').get();
-  //
-  //     //get document
-  //     var ticketUser = await db.collection('tickets').doc(issue).get();
-  //
-  //     if (!ticketUser.exists) {
-  //         console.log('Does not exist');
-  //         agent.add(`Ticket does not exist`);
-  //     } else {
-  //         console.log(ticketUser.data());
-  //         agent.add(ticketUser.data());
-  //     }
-  // }
+  function issuedTo(agent) {
+      // name
+      var name = agent.context.get("viewTicket").parameters["given-name"];
+      var surname = agent.context.get("viewTicket").parameters["last-name"];
+
+      // combine name and surname
+      var issue = `${name} ${surname}`;
+      // get collection
+      var tickets = await db.collection('tickets').get();
+
+      //get document
+      var ticketUser = await db.collection('tickets').doc(issue).get();
+
+      if (!ticketUser.exists) {
+          console.log('Does not exist');
+          agent.add(`Ticket does not exist`);
+      } else {
+          console.log(ticketUser.data());
+          agent.add(ticketUser.data());
+      }
+  }
 
   // intentMaps, more like a register for all functions
   var intentMap = new Map();
@@ -224,7 +224,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
   intentMap.set("confirmBooking", confirmBooking);
   intentMap.set("confirmationMessage", confirmationMessage);
   intentMap.set("viewTickets", viewTickets);
-  // intentMap.set("issuedTo", issuedTo);
+  intentMap.set("issuedTo", issuedTo);
   intentMap.set("somethingNice", somethingNice);
   intentMap.set("somethingCrazy", somethingCrazy);
 
