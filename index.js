@@ -187,22 +187,23 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
 
   // view all ordered tickets
   function viewTickets(agent) {
-    agent.add(`Give us the name of the person whom the ticket was issued to.`);
+    agent.add(`Give us the phone number of the person whom the ticket was issued to.`);
   }
 
   // reading data from db
   function issuedTo(agent) {
       // name
-      var name = agent.context.get("viewTicket").parameters["given-name"];
-      var surname = agent.context.get("viewTicket").parameters["last-name"];
+      // var name = agent.context.get("viewTicket").parameters["given-name"];
+      // var surname = agent.context.get("viewTicket").parameters["last-name"];
+      var phone = agent.context.get("viewTicket").parameters.phone;
 
       // combine name and surname
-      var issue = `${name} ${surname}`;
+      // var issue = `${name} ${surname}`;
       // get collection
       var tickets = await db.collection('tickets').get();
 
       //get document
-      var ticketUser = await db.collection('tickets').doc(issue).get();
+      var ticketUser = await db.collection('tickets').doc(phone).get();
 
       if (!ticketUser.exists) {
           console.log('Does not exist');
