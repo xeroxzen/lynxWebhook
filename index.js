@@ -187,15 +187,15 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
 
   // view all ordered tickets
   function viewTickets(agent) {
-    agent.add(`Give us the phone number of the person whom the ticket was issued to.`);
+    agent.add(`Give us the name of the person whom the ticket was issued to.`);
   }
 
   // reading data from db
   function issuedTo(agent) {
       // name
-      // var name = agent.context.get("viewTicket").parameters["given-name"];
+      var name = agent.context.get("viewTicket").parameters.person;
       // var surname = agent.context.get("viewTicket").parameters["last-name"];
-      const phone = agent.context.get("viewTicket").parameters.phone;
+      // const phone = agent.context.get("viewTicket").parameters.phone;
       const docRef = db.collection('tickets').doc(sessionId);
 
       return docRef.get()
@@ -204,7 +204,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
                 agent.add('No data found in the database!');
                 console.log(doc);
             } else {
-                agent.add(doc.data().fullname);
+                agent.add(doc.data().name);
             }
             return Promise.resolve('Read Complete');
         }).catch(() => {
