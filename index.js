@@ -8,6 +8,13 @@ const app = express();
 const dfff = require("dialogflow-fulfillment");
 const { Card, Suggestion } = require("dialogflow-fulfillment");
 
+// unique id generator (uniqid())
+var uniqid = require('uniqid');
+
+//another unique generator (uuid())
+const uuidV1 = require('uuid/v1');
+
+// firebase admin credentials
 var admin = require("firebase-admin");
 
 var serviceAccount = require("./config/lynxwebhook-firebase-adminsdk-q590u-6fb2939cc9.json");
@@ -154,13 +161,19 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     var busRider = `${person}`;
     var trip = `${travelFrom} to ${travelTo}`; // save trip instead of travelFrom and travelTo
 
+    //ticket // IDEA:
+    var ticketId = uniqid.time()
+
+    //reservation id
+    var reservationId = uuidV1();
+
     if (travelFrom == travelTo) {
       agent.add(
         `The trip departure point cannot be the same as the destination. Please start again your booking process. Type Start Over`
       );
     } else {
       agent.add(
-        `BOOKING CONFIRMATION \n\nNAME: ${fullname} \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nDATE: ${travelDate} \nTIME: ${travelTime} \n\nSafe Travels with City Link Luxury Coaches`
+        `BOOKING CONFIRMATION \n\nNAME: ${fullname} \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nDATE: ${travelDate} \nTIME: ${travelTime} \nTicket ID: ${ticketId} \nReservation ID: ${reservationId} \n\nSafe Travels with City Link Luxury Coaches`
       );
 
       return db
@@ -175,6 +188,8 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
           dateOfTravel: travelDate,
           timeOfTravel: travelTime,
           time: dateObject,
+          ticketId: ticketId,
+          reservationId: reservationId,
         })
         .then(
           (ref) =>
