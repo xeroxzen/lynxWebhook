@@ -195,23 +195,24 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
       // name
       // var name = agent.context.get("viewTicket").parameters["given-name"];
       // var surname = agent.context.get("viewTicket").parameters["last-name"];
-      var phone = agent.context.get("viewTicket").parameters.phone;
+      const phone = agent.context.get("viewTicket").parameters.phone;
+      const docRef = db.collection('tickets').doc(sessionId);
 
       // combine name and surname
       // var issue = `${name} ${surname}`;
       // get collection
-      var tickets = await db.collection('tickets').get();
-
-      //get document
-      var ticketUser = await db.collection('tickets').doc(phone).get();
-
-      if (!ticketUser.exists) {
-          console.log('Does not exist');
-          agent.add(`Ticket does not exist`);
-      } else {
-          console.log(ticketUser.data());
-          agent.add(ticketUser.data());
-      }
+      // var tickets = await db.collection('tickets').get();
+      //
+      // //get document
+      // var ticketUser = await db.collection('tickets').doc(phone).get();
+      //
+      // if (!ticketUser.exists) {
+      //     console.log('Does not exist');
+      //     agent.add(`Ticket does not exist`);
+      // } else {
+      //     console.log(ticketUser.data());
+      //     agent.add(ticketUser.data());
+      // }
   }
 
   // intentMaps, more like a register for all functions
