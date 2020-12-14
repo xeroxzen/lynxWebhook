@@ -189,8 +189,8 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
           dateOfTravel: travelDate,
           timeOfTravel: travelTime,
           time: dateObject,
-          ticketId: ticketId,
-          reservationId: reservationId,
+          ticketId: uniqid.time(),
+          reservationId: uuidV1(),
         })
         .then(
           (ref) =>
