@@ -198,6 +198,18 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
       const phone = agent.context.get("viewTicket").parameters.phone;
       const docRef = db.collection('tickets').doc(sessionId);
 
+      return docRef.get()
+        .then(doc => {
+            if (!doc.exists) {
+                agent.add('No data found in the database!');
+                console.log(doc);
+            } else {
+                agent.add(doc.data().fullname);
+            }
+            return Promise.resolve('Read Complete');
+        }).catch(() => {
+            agent.add("Could not retrieve your ticket information from the database");
+        });
       // combine name and surname
       // var issue = `${name} ${surname}`;
       // get collection
