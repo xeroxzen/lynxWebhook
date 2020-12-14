@@ -1,7 +1,7 @@
 // let's hack
 // Author: Andile Jaden Mbele
 // Program: index.js
-// Purpose: webhook for my virtual assistant
+// Purpose: webhook for City Link virtual assistant
 
 const express = require("express");
 const app = express();
@@ -226,21 +226,6 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
         }).catch(() => {
             agent.add("Could not retrieve your ticket information from the database");
         });
-      // combine name and surname
-      // var issue = `${name} ${surname}`;
-      // get collection
-      // var tickets = await db.collection('tickets').get();
-      //
-      // //get document
-      // var ticketUser = await db.collection('tickets').doc(phone).get();
-      //
-      // if (!ticketUser.exists) {
-      //     console.log('Does not exist');
-      //     agent.add(`Ticket does not exist`);
-      // } else {
-      //     console.log(ticketUser.data());
-      //     agent.add(ticketUser.data());
-      // }
   }
 
   // intentMaps, more like a register for all functions
