@@ -159,13 +159,13 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     var uniqid = require('uniqid');
 
     //another unique generator (uuid())
-    var uuidV1 = require('uuid/v1');
+    // var uuidV1 = require('uuid/v1');
 
     //ticket // IDEA:
     var ticketId = uniqid.time()
 
     //reservation id
-    var reservationId = uuidV1();
+    // var reservationId = uuidV1();
 
     if (travelFrom == travelTo) {
       agent.add(
@@ -173,7 +173,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
       );
     } else {
       agent.add(
-        `BOOKING CONFIRMATION \n\nNAME: ${fullname} \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nDATE: ${travelDate} \nTIME: ${travelTime} \nTicket ID: ${uniqid.time()} \nReservation ID: ${uuidV1()} \n\nSafe Travels with City Link Luxury Coaches`
+        `BOOKING CONFIRMATION \n\nNAME: ${fullname} \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nDATE: ${travelDate} \nTIME: ${travelTime} \nTicket ID: ${ticketId} \n\nSafe Travels with City Link Luxury Coaches`
       );
       //\nTicket ID: ${ticketId} \nReservation ID: ${reservationId}
 
@@ -189,8 +189,8 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
           dateOfTravel: travelDate,
           timeOfTravel: travelTime,
           time: dateObject,
-          ticketId: uniqid.time(),
-          reservationId: uuidV1(),
+          ticketId: ticketId,
+          // reservationId: uuidV1(),
         })
         .then(
           (ref) =>
