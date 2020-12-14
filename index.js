@@ -8,12 +8,6 @@ const app = express();
 const dfff = require("dialogflow-fulfillment");
 const { Card, Suggestion } = require("dialogflow-fulfillment");
 
-// unique id generator (uniqid())
-var uniqid = require('uniqid');
-
-//another unique generator (uuid())
-var uuidV1 = require('uuid/v1');
-
 // firebase admin credentials
 var admin = require("firebase-admin");
 
@@ -160,6 +154,12 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     var fullname = `${firstname} ${lastname}`;
     var busRider = `${person}`;
     var trip = `${travelFrom} to ${travelTo}`; // save trip instead of travelFrom and travelTo
+
+    // unique id generator (uniqid())
+    var uniqid = require('uniqid');
+
+    //another unique generator (uuid())
+    var uuidV1 = require('uuid/v1');
 
     //ticket // IDEA:
     var ticketId = uniqid.time()
