@@ -12,7 +12,7 @@ const { Card, Suggestion } = require("dialogflow-fulfillment");
 var uniqid = require('uniqid');
 
 //another unique generator (uuid())
-const uuidV1 = require('uuid/v1');
+var uuidV1 = require('uuid/v1');
 
 // firebase admin credentials
 var admin = require("firebase-admin");
