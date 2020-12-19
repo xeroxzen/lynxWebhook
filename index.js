@@ -7,9 +7,9 @@ const express = require("express");
 const app = express();
 const dfff = require("dialogflow-fulfillment");
 const { Card, Suggestion } = require("dialogflow-fulfillment");
-var moment = require('moment'); // require
+var moment = require("moment"); // require
 //moment().format();
-moment().format('LLLL');
+moment().format("LLLL");
 
 // firebase admin credentials
 var admin = require("firebase-admin");
@@ -143,9 +143,9 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     var phone = agent.context.get("confirm-ticket").parameters["phone-number"];
     var travelFrom = agent.context.get("capture-to").parameters.travelFrom;
     var travelTo = agent.context.get("capture-date").parameters.travelTo;
-    var travelDate = agent.context
-      .get("capture-schedule")
-      .parameters["travel-date"];
+    var travelDate = agent.context.get("capture-schedule").parameters[
+      "travel-date"
+    ];
     var travelTime = agent.context.get("confirm-booking").parameters[
       "travel-time"
     ];
@@ -154,7 +154,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     const dateObject = new Date();
 
     //new Unix TimeStamp
-    newUnixTimeStamp = moment(travelDate, 'YYYY-MM-DD').format('LLLL');
+    momentTravelDate = moment(travelDate, "YYYY-MM-DD HH:mm:ss").format("LLLL");
 
     // moment().format('LLLL');
 
@@ -163,7 +163,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     var trip = `${travelFrom} to ${travelTo}`; // save trip instead of travelFrom and travelTo
 
     // unique id generator (uniqid())
-    var uniqid = require('uniqid');
+    var uniqid = require("uniqid");
 
     //another unique generator (uuid())
     // var uuidV1 = require('uuid/v1');
@@ -176,40 +176,44 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
 
     //Testing
     console.log(
-      `\n\nNAME: ${fullname || person} \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nDATE: ${travelDate} \nTIME: ${travelTime} \nTicket ID: ${ticketId} \nMoment Time: ${newUnixTimeStamp}`
-  );
+      `\n\nNAME: ${
+        fullname || person
+      } \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nDATE: ${travelDate} \nTIME: ${travelTime} \nTicket ID: ${ticketId} \nMoment Time: ${momentTravelDate}`
+    );
 
     //Telegram
     agent.add(
-      `BOOKING CONFIRMATION \n\nNAME: ${fullname || person} \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nDATE: ${travelDate} \nTIME: ${travelTime} \nTicket ID: ${ticketId} \n\nSafe Travels with City Link Luxury Coaches`
+      `BOOKING CONFIRMATION \n\nNAME: ${
+        fullname || person
+      } \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nDATE: ${momentTravelDate} \nTIME: ${travelTime} \nTicket ID: ${ticketId} \n\nSafe Travels with City Link Luxury Coaches`
     );
     //\nTicket ID: ${ticketId} \nReservation ID: ${reservationId}
     // person[0].name;
 
-      return db
-        .collection("tickets")
-        .add({
-          //firstname: firstname,
-          //lastname: lastname,
-          fullname: fullname,
-          person: person,
-          phone: phone,
-          trip: trip,
-          dateOfTravel: travelDate,
-          newUnixTimeStamp: newUnixTimeStamp,
-          timeOfTravel: travelTime,
-          time: dateObject,
-          ticketId: ticketId,
-          // reservationId: uuidV1(),
-        })
-        .then(
-          (ref) =>
-            //fetching free slots
+    return db
+      .collection("tickets")
+      .add({
+        //firstname: firstname,
+        //lastname: lastname,
+        fullname: fullname,
+        person: person,
+        phone: phone,
+        trip: trip,
+        dateOfTravel: travelDate,
+        momentTravelDate: momentTravelDate,
+        timeOfTravel: travelTime,
+        time: dateObject,
+        ticketId: ticketId,
+        // reservationId: uuidV1(),
+      })
+      .then(
+        (ref) =>
+          //fetching free slots
 
-            console.log("Ticket successfully added."),
-          agent.add("Ticket reservation successful")
-        );
-    }
+          console.log("Ticket successfully added."),
+        agent.add("Ticket reservation successful")
+      );
+  }
 
   // view all ordered tickets
   function viewTickets(agent) {
@@ -218,24 +222,28 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
 
   // reading data from db
   function issuedTo(agent) {
-      // name
-      var name = agent.context.get("viewTicket").parameters.person;
-      // var surname = agent.context.get("viewTicket").parameters["last-name"];
-      // const phone = agent.context.get("viewTicket").parameters.phone;
-      const docRef = db.collection('tickets').doc(sessionId);
+    // name
+    var name = agent.context.get("viewTicket").parameters.person;
+    // var surname = agent.context.get("viewTicket").parameters["last-name"];
+    // const phone = agent.context.get("viewTicket").parameters.phone;
+    const docRef = db.collection("tickets").doc(sessionId);
 
-      return docRef.get()
-        .then(doc => {
-            if (!doc.exists) {
-                agent.add('No data found in the database!');
-                console.log(doc);
-            } else {
-                agent.add(doc.data().name);
-            }
-            return Promise.resolve('Read Complete');
-        }).catch(() => {
-            agent.add("Could not retrieve your ticket information from the database");
-        });
+    return docRef
+      .get()
+      .then((doc) => {
+        if (!doc.exists) {
+          agent.add("No data found in the database!");
+          console.log(doc);
+        } else {
+          agent.add(doc.data().name);
+        }
+        return Promise.resolve("Read Complete");
+      })
+      .catch(() => {
+        agent.add(
+          "Could not retrieve your ticket information from the database"
+        );
+      });
   }
 
   // intentMaps, more like a register for all functions
