@@ -171,6 +171,13 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
         `The trip departure point cannot be the same as the destination. Please start again your booking process. Type Start Over`
       );
     } else {
+
+        agent.add(
+          `BOOKING CONFIRMATION \n\nNAME: ${fullname || busRider[0].name} \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nDATE: ${travelDate} \nTIME: ${travelTime} \nTicket ID: ${ticketId} \n\nSafe Travels with City Link Luxury Coaches`
+        );
+        //\nTicket ID: ${ticketId} \nReservation ID: ${reservationId}
+        // person[0].name;
+        
       return db
         .collection("tickets")
         .add({
@@ -191,11 +198,6 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
             //fetching free slots
 
             console.log("Ticket successfully added."),
-            agent.add(
-              `BOOKING CONFIRMATION \n\nNAME: ${fullname || busRider[0].name} \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nDATE: ${travelDate} \nTIME: ${travelTime} \nTicket ID: ${ticketId} \n\nSafe Travels with City Link Luxury Coaches`
-            );
-            //\nTicket ID: ${ticketId} \nReservation ID: ${reservationId}
-            // person[0].name;
           agent.add("Ticket reservation successful");
         );
     }
