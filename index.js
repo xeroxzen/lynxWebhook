@@ -150,6 +150,9 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     // Save human readable date
     const dateObject = new Date();
 
+    //new Unix TimeStamp
+    newUnixTimeStamp = moment(travelDate, 'YYYY-MM-DD HH:mm:ss').unix();
+
     // Let's join firstname, lastname
     var fullname = `${firstname} ${lastname}`;
     var trip = `${travelFrom} to ${travelTo}`; // save trip instead of travelFrom and travelTo
@@ -182,6 +185,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
           phone: phone,
           trip: trip,
           dateOfTravel: travelDate,
+          newUnixTimeStamp: unixTimeStamp,
           timeOfTravel: travelTime,
           time: dateObject,
           ticketId: ticketId,
