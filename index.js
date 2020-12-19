@@ -166,34 +166,35 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     //reservation id
     // var reservationId = uuidV1();
 
-  return db
-    .collection("tickets")
-    .add({
-      //firstname: firstname,
-      //lastname: lastname,
-      fullname: fullname,
-      person: person,
-      phone: phone,
-      trip: trip,
-      dateOfTravel: travelDate,
-      timeOfTravel: travelTime,
-      time: dateObject,
-      ticketId: ticketId,
-      // reservationId: uuidV1(),
-    })
-    .then(
-      (ref) =>
-        //fetching free slots
-
-        console.log("Ticket successfully added."),
-        agent.add(
-          `BOOKING CONFIRMATION \n\nNAME: ${fullname || person} \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nDATE: ${travelDate} \nTIME: ${travelTime} \nTicket ID: ${ticketId} \n\nSafe Travels with City Link Luxury Coaches`
-        );
-        //\nTicket ID: ${ticketId} \nReservation ID: ${reservationId}
-        // person[0].name;
-      agent.add("Ticket reservation successful")
+    agent.add(
+      `BOOKING CONFIRMATION \n\nNAME: ${fullname || person} \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nDATE: ${travelDate} \nTIME: ${travelTime} \nTicket ID: ${ticketId} \n\nSafe Travels with City Link Luxury Coaches`
     );
-}
+    //\nTicket ID: ${ticketId} \nReservation ID: ${reservationId}
+    // person[0].name;
+
+      return db
+        .collection("tickets")
+        .add({
+          //firstname: firstname,
+          //lastname: lastname,
+          fullname: fullname,
+          person: person,
+          phone: phone,
+          trip: trip,
+          dateOfTravel: travelDate,
+          timeOfTravel: travelTime,
+          time: dateObject,
+          ticketId: ticketId,
+          // reservationId: uuidV1(),
+        })
+        .then(
+          (ref) =>
+            //fetching free slots
+
+            console.log("Ticket successfully added."),
+          agent.add("Ticket reservation successful")
+        );
+    }
 
   // view all ordered tickets
   function viewTickets(agent) {
