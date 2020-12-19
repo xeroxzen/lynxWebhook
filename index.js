@@ -277,7 +277,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
   intentMap.set("bitOff", bitOff);
   intentMap.set("askTravellersName", askTravellersName);
   intentMap.set("askTravellersPhone", askTravellersPhone);
-  intentMap.set("confirmBooking", confirmBooking);
+  // intentMap.set("confirmBooking", confirmBooking);
   intentMap.set("confirmationMessage", confirmationMessage);
   intentMap.set("viewTickets", viewTickets);
   intentMap.set("issuedTo", issuedTo);
