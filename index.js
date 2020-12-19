@@ -171,7 +171,6 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
         `The trip departure point cannot be the same as the destination. Please start again your booking process. Type Start Over`
       );
     } else {
-
       return db
         .collection("tickets")
         .add({
@@ -197,7 +196,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
             );
             //\nTicket ID: ${ticketId} \nReservation ID: ${reservationId}
             // person[0].name;
-          agent.add("Ticket reservation successful")
+          agent.add("Ticket reservation successful");
         );
     }
   }
