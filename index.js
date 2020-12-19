@@ -172,9 +172,10 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
       );
     } else {
       agent.add(
-        `BOOKING CONFIRMATION \n\nNAME: ${fullname || person} \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nDATE: ${travelDate} \nTIME: ${travelTime} \nTicket ID: ${ticketId} \n\nSafe Travels with City Link Luxury Coaches`
+        `BOOKING CONFIRMATION \n\nNAME: ${fullname || person[0].name} \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nDATE: ${travelDate} \nTIME: ${travelTime} \nTicket ID: ${ticketId} \n\nSafe Travels with City Link Luxury Coaches`
       );
       //\nTicket ID: ${ticketId} \nReservation ID: ${reservationId}
+      // person[0].name;
 
       return db
         .collection("tickets")
