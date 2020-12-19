@@ -71,18 +71,18 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
   }
 
   // Prompt the user for where they're travelling from
-  function askBookingFrom(agent) {
-    const departure =
-      "Please tell us where you are traveling from? \n\nRoutes covered include Bulawayo, Chegutu, Gweru, Kadoma, Kwekwe and Harare.";
-    agent.add(departure);
-  }
+  // function askBookingFrom(agent) {
+  //   const departure =
+  //     "Please tell us where you are traveling from? \n\nRoutes covered include Bulawayo, Chegutu, Gweru, Kadoma, Kwekwe and Harare.";
+  //   agent.add(departure);
+  // }
 
   // Prompt the user for where they're travelling to
-  function askBookingTo(agent) {
-    const destination =
-      "What is your travel destination? \n\nRoutes covered include Bulawayo, Chegutu, Gweru, Kadoma, Kwekwe and Harare.";
-    agent.add(destination);
-  }
+  // function askBookingTo(agent) {
+  //   const destination =
+  //     "What is your travel destination? \n\nRoutes covered include Bulawayo, Chegutu, Gweru, Kadoma, Kwekwe and Harare.";
+  //   agent.add(destination);
+  // }
 
   function askBookingDate(agent) {
     let travelFrom = agent.context.get("capture-to").parameters.travelFrom;
@@ -270,8 +270,8 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
   // intentMaps, more like a register for all functions
   var intentMap = new Map();
   intentMap.set("webhookDemo", demo);
-  intentMap.set("askBookingFrom", askBookingFrom);
-  intentMap.set("askBookingTo", askBookingTo);
+  // intentMap.set("askBookingFrom", askBookingFrom);
+  // intentMap.set("askBookingTo", askBookingTo);
   intentMap.set("askBookingDate", askBookingDate);
   intentMap.set("askName", askName);
   intentMap.set("bitOff", bitOff);
