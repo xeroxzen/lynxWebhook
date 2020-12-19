@@ -101,7 +101,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     } else {
       console.log(trip);
       agent.add(
-        `On what date would you like to travel? \n\nExample: 30 December 2020 or next week Thursday`
+        `On what date would you like to travel? \n\nExample: 30 January or next week Friday`
       );
     }
   }
@@ -152,7 +152,6 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
 
     // Let's join firstname, lastname
     var fullname = `${firstname} ${lastname}`;
-    var busRider = `${person}`;
     var trip = `${travelFrom} to ${travelTo}`; // save trip instead of travelFrom and travelTo
 
     // unique id generator (uniqid())
@@ -173,7 +172,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
       );
     } else {
       agent.add(
-        `BOOKING CONFIRMATION \n\nNAME: ${fullname} \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nDATE: ${travelDate} \nTIME: ${travelTime} \nTicket ID: ${ticketId} \n\nSafe Travels with City Link Luxury Coaches`
+        `BOOKING CONFIRMATION \n\nNAME: ${fullname || person} \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nDATE: ${travelDate} \nTIME: ${travelTime} \nTicket ID: ${ticketId} \n\nSafe Travels with City Link Luxury Coaches`
       );
       //\nTicket ID: ${ticketId} \nReservation ID: ${reservationId}
 
@@ -183,7 +182,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
           //firstname: firstname,
           //lastname: lastname,
           fullname: fullname,
-          busRider: busRider,
+          busRider: person,
           phone: phone,
           trip: trip,
           dateOfTravel: travelDate,
