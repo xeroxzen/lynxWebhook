@@ -190,7 +190,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
           phone: phone,
           trip: trip,
           dateOfTravel: travelDate,
-          newUnixTimeStamp: unixTimeStamp,
+          newUnixTimeStamp: newUnixTimeStamp,
           timeOfTravel: travelTime,
           time: dateObject,
           ticketId: ticketId,
