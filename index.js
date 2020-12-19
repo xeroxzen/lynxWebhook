@@ -154,8 +154,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     const dateObject = new Date();
 
     //new Unix TimeStamp
-    newUnixTimeStamp = moment(travelDate, 'YYYY-MM-DD HH:mm:ss').unix();
-    savedUnixTimeStamp = newUnixTimeStamp.moment().format('LLLL');
+    newUnixTimeStamp = moment(travelDate, 'YYYY-MM-DD HH:mm:ss').moment().format('LLLL');
 
     // moment().format('LLLL');
 
@@ -175,6 +174,12 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     //reservation id
     // var reservationId = uuidV1();
 
+    //Testing
+    console.log(
+      `\n\nNAME: ${fullname || person} \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nDATE: ${travelDate} \nTIME: ${travelTime} \nTicket ID: ${ticketId} \nMoment Time: ${newUnixTimeStamp}`
+  );
+
+    //Telegram
     agent.add(
       `BOOKING CONFIRMATION \n\nNAME: ${fullname || person} \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nDATE: ${travelDate} \nTIME: ${travelTime} \nTicket ID: ${ticketId} \n\nSafe Travels with City Link Luxury Coaches`
     );
@@ -191,7 +196,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
           phone: phone,
           trip: trip,
           dateOfTravel: travelDate,
-          newUnixTimeStamp: savedUnixTimeStamp,
+          newUnixTimeStamp: newUnixTimeStamp,
           timeOfTravel: travelTime,
           time: dateObject,
           ticketId: ticketId,
