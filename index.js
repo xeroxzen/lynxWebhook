@@ -155,6 +155,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
 
     //new Unix TimeStamp
     newUnixTimeStamp = moment(travelDate, 'YYYY-MM-DD HH:mm:ss').unix();
+    savedUnixTimeStamp = newUnixTimeStamp.moment().format('LLLL');
 
     // moment().format('LLLL');
 
@@ -190,7 +191,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
           phone: phone,
           trip: trip,
           dateOfTravel: travelDate,
-          newUnixTimeStamp: newUnixTimeStamp,
+          newUnixTimeStamp: savedUnixTimeStamp,
           timeOfTravel: travelTime,
           time: dateObject,
           ticketId: ticketId,
