@@ -7,7 +7,9 @@ const express = require("express");
 const app = express();
 const dfff = require("dialogflow-fulfillment");
 const { Card, Suggestion } = require("dialogflow-fulfillment");
-const moment = require("moment");
+var moment = require('moment'); // require
+//moment().format();
+moment().format('LLLL');
 
 // firebase admin credentials
 var admin = require("firebase-admin");
