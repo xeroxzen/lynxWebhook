@@ -109,6 +109,11 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     }
   }
 
+  // Get Traveller's Name
+  function askTravellersName(agent){
+      agent.add("May I have your first name and surname to finish booking?");
+  }
+
   // Confirm data before saving to db
   function confirmBooking(agent) {
     var firstname = agent.context.get("capture-fullname").parameters.firstname;
@@ -254,6 +259,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
   intentMap.set("askBookingDate", askBookingDate);
   intentMap.set("askName", askName);
   intentMap.set("bitOff", bitOff);
+  intentMap.set("askTravellersName", askTravellersName);
   intentMap.set("confirmBooking", confirmBooking);
   intentMap.set("confirmationMessage", confirmationMessage);
   intentMap.set("viewTickets", viewTickets);
