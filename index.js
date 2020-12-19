@@ -196,7 +196,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
             );
             //\nTicket ID: ${ticketId} \nReservation ID: ${reservationId}
             // person[0].name;
-          agent.add("Ticket reservation successful");
+          agent.add("Ticket reservation successful")
         );
     }
   }
