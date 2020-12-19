@@ -110,8 +110,8 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
   }
 
   // Get Traveller's Name
-  function askTravellersName(agent){
-      agent.add("May I have your first name and surname to finish booking?");
+  function askTravellersName(agent) {
+    agent.add("May I have your first name and surname to finish booking?");
   }
 
   // Confirm data before saving to db
@@ -145,7 +145,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     var firstname = agent.context.get("capture-fullname").parameters.firstname;
     var lastname = agent.context.get("capture-fullname").parameters.lastname;
     var person = agent.context.get("capture-fullname").parameters.person;
-    var phone = agent.context.get("confirm-ticket").parameters["phone-number"];
+    var phone = agent.context.get("confirm-ticket").parameters.phoneNumber;
     var travelFrom = agent.context.get("capture-to").parameters.travelFrom;
     var travelTo = agent.context.get("capture-date").parameters.travelTo;
     var travelDate = agent.context.get("capture-schedule").parameters[
@@ -174,7 +174,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     // var uuidV1 = require('uuid/v1');
 
     //ticket // IDEA:
-    var ticketId = uniqid('CityLink', '#Coaches') //uniqid.process();
+    var ticketId = uniqid("CityLink", "#Coaches"); //uniqid.process();
 
     //reservation id
     // var reservationId = uuidV1();
