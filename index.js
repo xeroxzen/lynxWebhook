@@ -154,7 +154,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     const dateObject = new Date();
 
     //new Unix TimeStamp
-    momentTravelDate = moment(travelDate, "YYYY-MM-DD HH:mm:ss").format("LLLL");
+    momentTravelDate = moment(travelDate, "YYYY-MM-DD HH:mm:ss").format("LL");
 
     // moment().format('LLLL');
 
