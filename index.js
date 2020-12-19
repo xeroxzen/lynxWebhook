@@ -7,6 +7,7 @@ const express = require("express");
 const app = express();
 const dfff = require("dialogflow-fulfillment");
 const { Card, Suggestion } = require("dialogflow-fulfillment");
+const moment = require("moment");
 
 // firebase admin credentials
 var admin = require("firebase-admin");
@@ -152,6 +153,8 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
 
     //new Unix TimeStamp
     newUnixTimeStamp = moment(travelDate, 'YYYY-MM-DD HH:mm:ss').unix();
+
+    // moment().format('LLLL');
 
     // Let's join firstname, lastname
     var fullname = `${firstname} ${lastname}`;
