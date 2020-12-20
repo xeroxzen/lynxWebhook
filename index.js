@@ -164,9 +164,9 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
 
     //Telegram and Messenger
     agent.add(
-      `BOOKING CONFIRMATION \n\nNAME: ${
+      `BOOKING CONFIRMATION \n\nFull Name: ${
         fullname || person
-      } \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nDATE: ${momentTravelDate} \nTIME: ${travelTime} \nTicket ID: ${ticketId} \n\nSafe Travels with City Link Luxury Coaches`
+      } \nPhone Number: ${phone} \nTrip: ${trip} \nTravel Date: ${momentTravelDate} \nTravel Time: ${travelTime} \nTicket ID: ${ticketId} \n\nSafe Travels with City Link Luxury Coaches`
     );
     //\nTicket ID: ${ticketId} \nReservation ID: ${reservationId}
     // person[0].name;
