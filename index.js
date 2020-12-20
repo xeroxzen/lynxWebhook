@@ -28,6 +28,7 @@ try {
 }
 
 var db = admin.firestore();
+db.settings({ ignoreUndefinedProperties: true });
 
 //Let's define port number
 const port = process.env.PORT || 8080;
