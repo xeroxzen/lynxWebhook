@@ -44,10 +44,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
 
   // First function, let's test if we are running live
   function demo(agent) {
-    agent.add(
-      "We are live, sending response from Webhook server as [Version 1.1.11.1]"
-    );
-    agent.add("Okay let's see what we can get up to today");
+    agent.add("We are live, sending response from Webhook server as [v107]");
   }
 
   // Second function: this is for telling something nice
@@ -102,16 +99,20 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
 
   //Get Traveller's Phone
   function askTravellersPhone(agent) {
-      var firstname = agent.context.get("capture-fullname").parameters.firstname;
-      var lastname = agent.context.get("capture-fullname").parameters.lastname;
-      var person = agent.context.get("capture-fullname").parameters.person;
+    var firstname = agent.context.get("capture-fullname").parameters.firstname;
+    var lastname = agent.context.get("capture-fullname").parameters.lastname;
+    var person = agent.context.get("capture-fullname").parameters.person;
 
-      var name = `${firstname} ${lastname}`;
-      if ((name == null) || (name == '') || (person == null)) {
-          agent.add("The name of the one travelling is required. The section cannot be empty.");
-      } else {
-          agent.add("May I have your valid mobile phone number please. \n\nFormat: 0776814777");
-      }
+    var name = `${firstname} ${lastname}`;
+    if (name == null || name == "" || person == null) {
+      agent.add(
+        "The name of the one travelling is required. The section cannot be empty."
+      );
+    } else {
+      agent.add(
+        "May I have your valid mobile phone number please. \n\nFormat: 0776814777"
+      );
+    }
   }
 
   // Save the user data to the db
@@ -162,7 +163,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
       } \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nDATE: ${travelDate} \nTIME: ${travelTime} \nTicket ID: ${ticketId} \nMoment Time: ${momentTravelDate}`
     );
 
-    //Telegram
+    //Telegram and Messenger
     agent.add(
       `BOOKING CONFIRMATION \n\nNAME: ${
         fullname || person
@@ -192,7 +193,9 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
           //fetching free slots
 
           console.log("Ticket successfully added."),
-        agent.add(`Your ticket reservation was successful. This is the end of the booking process, to check other functions type "Hie"`)
+        agent.add(
+          `Your ticket reservation was successful. This is the end of the booking process, to check other functions type "Hie"`
+        )
       );
   }
 
