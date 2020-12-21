@@ -168,8 +168,6 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
         fullname || person
       } \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nTRAVEL DATE: ${momentTravelDate} \nTRAVEL TIME: ${travelTime} \nTICKET ID: ${ticketId} \n\nSafe Travels with City Link Luxury Coaches`
     );
-    //\nTicket ID: ${ticketId} \nReservation ID: ${reservationId}
-    // person[0].name;
 
     return db
       .collection("tickets")
@@ -180,7 +178,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
         person: person,
         phone: phone,
         trip: trip,
-        dateOfTravel: travelDate,
+        // dateOfTravel: travelDate,
         momentTravelDate: momentTravelDate,
         timeOfTravel: travelTime,
         time: dateObject,
