@@ -192,43 +192,6 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
           console.log("Ticket successfully added."),
         agent.add(`Your ticket reservation was successful.`)
       );
-
-    var payload = {
-      richContent: [
-        [
-          {
-            type: "chips",
-            options: [
-              {
-                text: "Chip 1",
-                image: {
-                  src: {
-                    rawUrl: "https://example.com/images/logo.png",
-                  },
-                },
-                link: "https://example.com",
-              },
-              {
-                text: "Chip 2",
-                image: {
-                  src: {
-                    rawUrl: "https://example.com/images/logo.png",
-                  },
-                },
-                link: "https://example.com",
-              },
-            ],
-          },
-        ],
-      ],
-    };
-
-    agent.add(
-      new dfff.Payload(platform.UNSPECIFIED, payloadData, {
-        sendAsMessage: true,
-        rawPayload: true,
-      })
-    );
   }
 
   //finished
