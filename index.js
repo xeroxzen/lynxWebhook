@@ -166,7 +166,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     agent.add(
       `BOOKING CONFIRMATION \n\nFull Name: ${
         fullname || person
-      } \nPhone Number: ${phone} \nTrip: ${trip} \nTravel Date: ${momentTravelDate} \nTravel Time: ${travelTime} \nTicket ID: ${ticketId} \n\nSafe Travels with City Link Luxury Coaches`
+      } \nPHONE NUMBER: ${phone} \nTRIP: ${trip} \nTRAVEL DATE: ${momentTravelDate} \nTRAVEL TIME: ${travelTime} \nTICKET ID: ${ticketId} \n\nSafe Travels with City Link Luxury Coaches`
     );
     //\nTicket ID: ${ticketId} \nReservation ID: ${reservationId}
     // person[0].name;
