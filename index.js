@@ -81,17 +81,18 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
         `The trip departure point cannot be the same as the destination.`
       );
       // Quick reply suggestions
+      agent.add("Choose your travel destination one more time!");
       agent.add(new Suggestion(`Bulawayo`));
       agent.add(new Suggestion(`Chegutu`));
       agent.add(new Suggestion(`Gweru`));
       agent.add(new Suggestion(`Harare`));
       agent.add(new Suggestion(`Kadoma`));
       agent.add(new Suggestion(`Kwekwe`));
-      agent.setContext({
-        name: "askBookingDate",
-        lifespan: 5,
-        parameters: { travelTo: "" },
-      });
+      // agent.setContext({
+      //   name: "askBookingDate",
+      //   lifespan: 5,
+      //   parameters: { travelTo: "" },
+      // });
 
       //Quick Reply
       // agent.add(
