@@ -88,7 +88,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
       agent.add(new Suggestion(`Kadoma`));
       agent.add(new Suggestion(`Kwekwe`));
       agent.setContext({
-        name: "askBookingTo",
+        name: "askBookingDate",
         lifespan: 5,
         parameters: { travelTo: "" },
       });
