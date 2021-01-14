@@ -6,7 +6,7 @@
 const express = require("express");
 const app = express();
 const dfff = require("dialogflow-fulfillment");
-const { Card, Suggestion } = require("dialogflow-fulfillment");
+const { Card, Suggestion, QuickReplies } = require("dialogflow-fulfillment");
 var moment = require("moment"); // require
 //moment().format();
 moment().format("LLLL");
@@ -79,45 +79,14 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
       console.log(trip);
       agent.add(
         `The trip departure point cannot be the same as the destination. Please start again your booking process. Type Start Over`
-      ),
-        {
-          fulfillmentMessages: [
-            {
-              quickReplies: {
-                title: "Where are you travelling to?",
-                quickReplies: [
-                  "Bulawayo",
-                  "Chegutu",
-                  "Gweru",
-                  "Harare",
-                  "Kadoma",
-                  "Kwekwe",
-                ],
-              },
-              platform: "TELEGRAM",
-            },
-            {
-              quickReplies: {
-                title: "Where are you travelling to?",
-                quickReplies: [
-                  "Bulawayo",
-                  "Chegutu",
-                  "Gweru",
-                  "Harare",
-                  "Kadoma",
-                  "Kwekwe",
-                ],
-              },
-              platform: "FACEBOOK",
-            },
-            {
-              text: {
-                text: [""],
-              },
-            },
-          ],
-        };
-      agent.add(new Suggestion(`Quick Reply`));
+      );
+      // Quick reply suggestions
+      agent.add(new Suggestion(`Bulawayo`));
+      agent.add(new Suggestion(`Chegutu`));
+      agent.add(new Suggestion(`Gweru`));
+      agent.add(new Suggestion(`Harare`));
+      agent.add(new Suggestion(`Kadoma`));
+      agent.add(new Suggestion(`Kwekwe`));
       // Ends here
 
       //this starts here
