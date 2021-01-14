@@ -94,7 +94,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
                   "Kwekwe",
                 ],
               },
-              platform: "FACEBOOK",
+              platform: "TELEGRAM",
             },
             {
               quickReplies: {
@@ -108,7 +108,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
                   "Kwekwe",
                 ],
               },
-              platform: "TELEGRAM",
+              platform: "FACEBOOK",
             },
             {
               text: {
@@ -117,6 +117,10 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
             },
           ],
         };
+      agent.add(new Suggestion(`Quick Reply`));
+      // Ends here
+
+      //this starts here
     } else if (travelFrom == null) {
       console.log("Blank departure point");
       agent.add(
