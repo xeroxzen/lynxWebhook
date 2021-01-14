@@ -79,7 +79,44 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
       console.log(trip);
       agent.add(
         `The trip departure point cannot be the same as the destination. Please start again your booking process. Type Start Over`
-      );
+      ),
+        {
+          fulfillmentMessages: [
+            {
+              quickReplies: {
+                title: "Where are you travelling to?",
+                quickReplies: [
+                  "Bulawayo",
+                  "Chegutu",
+                  "Gweru",
+                  "Harare",
+                  "Kadoma",
+                  "Kwekwe",
+                ],
+              },
+              platform: "FACEBOOK",
+            },
+            {
+              quickReplies: {
+                title: "Where are you travelling to?",
+                quickReplies: [
+                  "Bulawayo",
+                  "Chegutu",
+                  "Gweru",
+                  "Harare",
+                  "Kadoma",
+                  "Kwekwe",
+                ],
+              },
+              platform: "TELEGRAM",
+            },
+            {
+              text: {
+                text: [""],
+              },
+            },
+          ],
+        };
     } else if (travelFrom == null) {
       console.log("Blank departure point");
       agent.add(
