@@ -69,7 +69,45 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
   }
 
   // travel destination booking error
-  function travelDestinationErrorChecking(agent) {
+  // function travelDestinationErrorChecking(agent) {
+  //   let travelFrom = agent.context.get("capture-to").parameters.travelFrom;
+  //   let travelTo = agent.context.get("capture-date").parameters.travelTo;
+
+  //   // simplify
+  //   var trip = `${travelFrom} to ${travelTo}`;
+
+  //   if (travelFrom == travelTo) {
+  //     console.log(trip);
+  //     agent.add(
+  //       `The trip departure point cannot be the same as the destination.`
+  //     );
+  //     // Quick reply suggestions
+  //     // agent.add("Choose your travel destination one more time!");
+  //     agent.add(new Suggestion(`Bulawayo`));
+  //     agent.add(new Suggestion(`Chegutu`));
+  //     agent.add(new Suggestion(`Gweru`));
+  //     agent.add(new Suggestion(`Harare`));
+  //     agent.add(new Suggestion(`Kadoma`));
+  //     agent.add(new Suggestion(`Kwekwe`));
+
+  //     //this starts here
+  //   } else if (travelFrom == null) {
+  //     console.log("Blank departure point");
+  //     agent.add(`The trip departure point cannot be empty.`);
+
+  //     // Quick reply suggestions
+  //     // agent.add("Choose your travel destination one more time!");
+  //     agent.add(new Suggestion(`Bulawayo`));
+  //     agent.add(new Suggestion(`Chegutu`));
+  //     agent.add(new Suggestion(`Gweru`));
+  //     agent.add(new Suggestion(`Harare`));
+  //     agent.add(new Suggestion(`Kadoma`));
+  //     agent.add(new Suggestion(`Kwekwe`));
+  //   }
+  // }
+
+  // Starts here
+  function askBookingDate(agent) {
     let travelFrom = agent.context.get("capture-to").parameters.travelFrom;
     let travelTo = agent.context.get("capture-date").parameters.travelTo;
 
@@ -89,76 +127,37 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
       agent.add(new Suggestion(`Harare`));
       agent.add(new Suggestion(`Kadoma`));
       agent.add(new Suggestion(`Kwekwe`));
+      // agent.setContext({
+      //   name: "askBookingDate",
+      //   lifespan: 5,
+      //   parameters: { travelTo: "" },
+      // });
+
+      //Quick Reply
+      // agent.add(
+      //   new QuickReply([
+      //     "Bulawayo",
+      //     "Chegutu",
+      //     "Gweru",
+      //     "Harare",
+      //     "Kadoma",
+      //     "Kwekwe",
+      //   ])
+      // );
+      // Ends here
 
       //this starts here
     } else if (travelFrom == null) {
       console.log("Blank departure point");
-      agent.add(`The trip departure point cannot be empty.`);
-
-      // Quick reply suggestions
-      // agent.add("Choose your travel destination one more time!");
-      agent.add(new Suggestion(`Bulawayo`));
-      agent.add(new Suggestion(`Chegutu`));
-      agent.add(new Suggestion(`Gweru`));
-      agent.add(new Suggestion(`Harare`));
-      agent.add(new Suggestion(`Kadoma`));
-      agent.add(new Suggestion(`Kwekwe`));
+      agent.add(
+        `The trip departure point cannot be empty. Please start again your booking process. Type Start Over`
+      );
+    } else {
+      console.log(trip);
+      agent.add(
+        `On what date would you like to travel? \n\nExample: 30 January or next week Friday`
+      );
     }
-  }
-
-  // Starts here
-  function askBookingDate(agent) {
-    // let travelFrom = agent.context.get("capture-to").parameters.travelFrom;
-    // let travelTo = agent.context.get("capture-date").parameters.travelTo;
-
-    // // simplify
-    // var trip = `${travelFrom} to ${travelTo}`;
-
-    // if (travelFrom == travelTo) {
-    //   console.log(trip);
-    //   agent.add(
-    //     `The trip departure point cannot be the same as the destination.`
-    //   );
-    //   // Quick reply suggestions
-    //   // agent.add("Choose your travel destination one more time!");
-    //   agent.add(new Suggestion(`Bulawayo`));
-    //   agent.add(new Suggestion(`Chegutu`));
-    //   agent.add(new Suggestion(`Gweru`));
-    //   agent.add(new Suggestion(`Harare`));
-    //   agent.add(new Suggestion(`Kadoma`));
-    //   agent.add(new Suggestion(`Kwekwe`));
-    //   // agent.setContext({
-    //   //   name: "askBookingDate",
-    //   //   lifespan: 5,
-    //   //   parameters: { travelTo: "" },
-    //   // });
-
-    //   //Quick Reply
-    //   // agent.add(
-    //   //   new QuickReply([
-    //   //     "Bulawayo",
-    //   //     "Chegutu",
-    //   //     "Gweru",
-    //   //     "Harare",
-    //   //     "Kadoma",
-    //   //     "Kwekwe",
-    //   //   ])
-    //   // );
-    //   // Ends here
-
-    //   //this starts here
-    // } else if (travelFrom == null) {
-    //   console.log("Blank departure point");
-    //   agent.add(
-    //     `The trip departure point cannot be empty. Please start again your booking process. Type Start Over`
-    //   );
-    // } else {
-    //   console.log(trip);
-    //   agent.add(
-    //     `On what date would you like to travel? \n\nExample: 30 January or next week Friday`
-    //   );
-    // }
-    agent.add(`On what date would you like to travel? \n\nExample: 30 January 2021 or next week Friday`);
   }
 
   // Get Traveller's Name
@@ -315,10 +314,10 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
   intentMap.set("issuedTo", issuedTo);
   intentMap.set("somethingNice", somethingNice);
   intentMap.set("somethingCrazy", somethingCrazy);
-  intentMap.set(
-    "travelDestinationErrorChecking",
-    travelDestinationErrorChecking
-  );
+  // intentMap.set(
+  //   "travelDestinationErrorChecking",
+  //   travelDestinationErrorChecking
+  // );
 
   agent.handleRequest(intentMap);
 });
