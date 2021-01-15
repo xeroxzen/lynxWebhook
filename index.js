@@ -68,6 +68,45 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     agent.add("That's what I'm trying to figure out...");
   }
 
+  // travel destination booking error
+  function travelDestinationErrorChecking(agent) {
+    let travelFrom = agent.context.get("capture-to").parameters.travelFrom;
+    let travelTo = agent.context.get("capture-date").parameters.travelTo;
+
+    // simplify
+    var trip = `${travelFrom} to ${travelTo}`;
+
+    if (travelFrom == travelTo) {
+      console.log(trip);
+      agent.add(
+        `The trip departure point cannot be the same as the destination.`
+      );
+      // Quick reply suggestions
+      // agent.add("Choose your travel destination one more time!");
+      agent.add(new Suggestion(`Bulawayo`));
+      agent.add(new Suggestion(`Chegutu`));
+      agent.add(new Suggestion(`Gweru`));
+      agent.add(new Suggestion(`Harare`));
+      agent.add(new Suggestion(`Kadoma`));
+      agent.add(new Suggestion(`Kwekwe`));
+
+      //this starts here
+    } else if (travelFrom == null) {
+      console.log("Blank departure point");
+      agent.add(`The trip departure point cannot be empty.`);
+
+      // Quick reply suggestions
+      // agent.add("Choose your travel destination one more time!");
+      agent.add(new Suggestion(`Bulawayo`));
+      agent.add(new Suggestion(`Chegutu`));
+      agent.add(new Suggestion(`Gweru`));
+      agent.add(new Suggestion(`Harare`));
+      agent.add(new Suggestion(`Kadoma`));
+      agent.add(new Suggestion(`Kwekwe`));
+    }
+  }
+
+  // Starts here
   function askBookingDate(agent) {
     let travelFrom = agent.context.get("capture-to").parameters.travelFrom;
     let travelTo = agent.context.get("capture-date").parameters.travelTo;
