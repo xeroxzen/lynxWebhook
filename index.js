@@ -121,12 +121,9 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
       );
       // Quick reply suggestions
       // agent.add("Choose your travel destination one more time!");
-      agent.add(new Suggestion(`Bulawayo`));
-      agent.add(new Suggestion(`Chegutu`));
-      agent.add(new Suggestion(`Gweru`));
-      agent.add(new Suggestion(`Harare`));
-      agent.add(new Suggestion(`Kadoma`));
-      agent.add(new Suggestion(`Kwekwe`));
+      agent.add(new Suggestion(`Start Over`));
+      agent.add(new Suggestion(`Cancel`));
+
       // agent.setContext({
       //   name: "askBookingDate",
       //   lifespan: 5,
@@ -153,12 +150,8 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
         `The trip departure point cannot be empty. Please start again your booking process. Type Start Over`
       );
       // Suggestions
-      agent.add(new Suggestion(`Bulawayo`));
-      agent.add(new Suggestion(`Chegutu`));
-      agent.add(new Suggestion(`Gweru`));
-      agent.add(new Suggestion(`Harare`));
-      agent.add(new Suggestion(`Kadoma`));
-      agent.add(new Suggestion(`Kwekwe`));
+      agent.add(new Suggestion(`Start Over`));
+      agent.add(new Suggestion(`Cancel`));
     } else {
       console.log(trip);
       agent.add(
