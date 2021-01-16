@@ -152,6 +152,13 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
       agent.add(
         `The trip departure point cannot be empty. Please start again your booking process. Type Start Over`
       );
+      // Suggestions
+      agent.add(new Suggestion(`Bulawayo`));
+      agent.add(new Suggestion(`Chegutu`));
+      agent.add(new Suggestion(`Gweru`));
+      agent.add(new Suggestion(`Harare`));
+      agent.add(new Suggestion(`Kadoma`));
+      agent.add(new Suggestion(`Kwekwe`));
     } else {
       console.log(trip);
       agent.add(
