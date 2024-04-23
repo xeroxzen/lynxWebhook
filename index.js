@@ -7,8 +7,7 @@ const express = require("express");
 const app = express();
 const dfff = require("dialogflow-fulfillment");
 const { Card, Suggestion } = require("dialogflow-fulfillment");
-var moment = require("moment"); // require
-//moment().format();
+var moment = require("moment"); 
 moment().format("LLLL");
 
 // firebase admin credentials
@@ -68,44 +67,6 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     agent.add("That's what I'm trying to figure out...");
   }
 
-  // travel destination booking error
-  // function travelDestinationErrorChecking(agent) {
-  //   let travelFrom = agent.context.get("capture-to").parameters.travelFrom;
-  //   let travelTo = agent.context.get("capture-date").parameters.travelTo;
-
-  //   // simplify
-  //   var trip = `${travelFrom} to ${travelTo}`;
-
-  //   if (travelFrom == travelTo) {
-  //     console.log(trip);
-  //     agent.add(
-  //       `The trip departure point cannot be the same as the destination.`
-  //     );
-  //     // Quick reply suggestions
-  //     // agent.add("Choose your travel destination one more time!");
-  //     agent.add(new Suggestion(`Bulawayo`));
-  //     agent.add(new Suggestion(`Chegutu`));
-  //     agent.add(new Suggestion(`Gweru`));
-  //     agent.add(new Suggestion(`Harare`));
-  //     agent.add(new Suggestion(`Kadoma`));
-  //     agent.add(new Suggestion(`Kwekwe`));
-
-  //     //this starts here
-  //   } else if (travelFrom == null) {
-  //     console.log("Blank departure point");
-  //     agent.add(`The trip departure point cannot be empty.`);
-
-  //     // Quick reply suggestions
-  //     // agent.add("Choose your travel destination one more time!");
-  //     agent.add(new Suggestion(`Bulawayo`));
-  //     agent.add(new Suggestion(`Chegutu`));
-  //     agent.add(new Suggestion(`Gweru`));
-  //     agent.add(new Suggestion(`Harare`));
-  //     agent.add(new Suggestion(`Kadoma`));
-  //     agent.add(new Suggestion(`Kwekwe`));
-  //   }
-  // }
-
   // Starts here
   function askBookingDate(agent) {
     let travelFrom = agent.context.get("capture-to").parameters.travelFrom;
@@ -123,25 +84,6 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
       // agent.add("Choose your travel destination one more time!");
       agent.add(new Suggestion(`Start Over`));
       agent.add(new Suggestion(`Cancel`));
-
-      // agent.setContext({
-      //   name: "askBookingDate",
-      //   lifespan: 5,
-      //   parameters: { travelTo: "" },
-      // });
-
-      //Quick Reply
-      // agent.add(
-      //   new QuickReply([
-      //     "Bulawayo",
-      //     "Chegutu",
-      //     "Gweru",
-      //     "Harare",
-      //     "Kadoma",
-      //     "Kwekwe",
-      //   ])
-      // );
-      // Ends here
 
       //this starts here
     } else if (travelFrom == null) {
@@ -213,14 +155,8 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     // unique id generator (uniqid())
     var uniqid = require("uniqid");
 
-    //another unique generator (uuid())
-    // var uuidV1 = require('uuid/v1');
-
     //ticket // IDEA:
     var ticketId = uniqid("City Link-", "-Coaches"); //uniqid.process();
-
-    //reservation id
-    // var reservationId = uuidV1();
 
     //Testing
     console.log(
@@ -239,18 +175,14 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
     return db
       .collection("tickets")
       .add({
-        //firstname: firstname,
-        //lastname: lastname,
         fullname: fullname,
         person: person,
         phone: phone,
         trip: trip,
-        // dateOfTravel: travelDate,
         momentTravelDate: momentTravelDate,
         timeOfTravel: travelTime,
         time: dateObject,
         ticketId: ticketId,
-        // reservationId: uuidV1(),
       })
       .then(
         (ref) =>
@@ -273,10 +205,7 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
 
   // reading data from db
   function issuedTo(agent) {
-    // name
     var name = agent.context.get("viewTicket").parameters.person;
-    // var surname = agent.context.get("viewTicket").parameters["last-name"];
-    // const phone = agent.context.get("viewTicket").parameters.phone;
     const docRef = db.collection("tickets").doc(sessionId);
 
     return docRef
@@ -300,8 +229,6 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
   // intentMaps, more like a register for all functions
   var intentMap = new Map();
   intentMap.set("webhookDemo", demo);
-  // intentMap.set("askBookingFrom", askBookingFrom);
-  // intentMap.set("askBookingTo", askBookingTo);
   intentMap.set("askBookingDate", askBookingDate);
   intentMap.set("askName", askName);
   intentMap.set("bitOff", bitOff);
@@ -314,10 +241,6 @@ app.post("/dialogflow-fulfillment", express.json(), (req, res) => {
   intentMap.set("issuedTo", issuedTo);
   intentMap.set("somethingNice", somethingNice);
   intentMap.set("somethingCrazy", somethingCrazy);
-  // intentMap.set(
-  //   "travelDestinationErrorChecking",
-  //   travelDestinationErrorChecking
-  // );
 
   agent.handleRequest(intentMap);
 });
